@@ -7,26 +7,47 @@
 
 #include <string>
 
-// class that represents a player
+/**
+ * class that represents a player
+ */
 class Player {
   public:
-    // constructor for initializing x_ and y_ to given values,
-    // and initializing all other member variables via their
-    // default constructors
+    /**
+     * constructor specifying the x and y coordinates of this player
+     *
+     * @param x the x coordinate of this player
+     * @param y the y coordinate of this player
+     */
     Player(int x, int y) : x_(x), y_(y) { }
 
-    // @returns string representation of this object
+    /**
+     * returns a string representation of this player
+     *
+     * @return  string representation of this player
+     */
     virtual std::string ToString() const = 0;
 
-    // updates this player's state by progressing by a game tick
+    /**
+     * updates this player's state by progressing by a game tick
+     *
+     * @param game_map
+     */
     virtual void Tick(GameMape &game_map);
 
-    // finds the path from this player's current location (x_, y_)
-    // to the given destination (dest_x, dest_y) and updates this
-    // player's state accordingly
-    virtual void PathFind(int dest_x, int dest_y);
+    /**
+     * finds the path from this player's current location (x_, y_)
+     * to the given destination (dest_x, dest_y) and modifies this
+     * player's state accordingly
+     *
+     * @param game_map  the state of the game map
+     * @param dest_x    the x coordinate of the destination
+     * @param dest_y    the y coordinate of the destination
+     */
+    virtual void PathFind(GameMap &game_map, int dest_x, int dest_y);
 
-    // virtual destructor that does nothing
+    /**
+     * virtual destructor that does nothing
+     */
     virtual ~Player() { }
 
   protected:

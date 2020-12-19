@@ -11,34 +11,67 @@
 #include "Player.h"
 #include "GameMap.h"
 
-// class that represents a (player) defender
+/**
+ * class that represents a (player) defender
+ */
 class PlayerDefender : public Player {
   public:
-    // constructor for initializing x_ and y_ to given values,
-    // and initializing all other member variables via their
-    // default constructors
+  /**
+   * constructor specifying the x and y coordinates of this (player) defender
+   *
+   * @param x the x coordinate of this (player) defender
+   * @param y the y coordinate of this (player) defender
+   */
     PlayerDefender(int x, int y) : Player(x, y) { }
 
-    // virtual destructor that does nothing
+    /**
+     * virtual destructor that does nothing
+     */
     virtual ~PlayerDefender() { }
 
-    // @returns string representation of this object
+    /**
+     * returns a string representation of this (player) defender
+     *
+     * @return  string representation of this (player) defender
+     */
     std::string ToString() const override;
 
-    // updates this player's state by progressing by a game tick
+    /**
+     * updates this player's state by progressing by a game tick
+     *
+     * @param game_map  the state of the game map
+     */
     void Tick(GameMap &game_map) override;
 
-    // finds the path from this player's current location (x_, y_)
-    // to the given destination (dest_x, dest_y) and updates this
-    // player's state accordingly
+    /**
+     * finds the path from this (player) defender's current location (x_, y_)
+     * to the given destination (dest_x, dest_y) and modifies this (player)
+     * defender's state accordingly
+     *
+     * @param game_map  the state of the game map
+     * @param dest_x    the x coordinate of the destination
+     * @param dest_y    the y coordinate of the destination
+     */
     void PathFind(GameMap &game_map, int dest_x, int dest_y) override;
 
-    // @returns true if can repair east trap from current location,
-    //          else false
+    /**
+     * checks if this (player) defender can repair the east trap from their
+     * current location
+     *
+     * @param   game_map  the state of the game map
+     * @return            true if this (player) defender can repair the east
+     *                    trap from their current location, else false
+     */
     bool IsInEastRepairRange(GameMap &game_map) const;
 
-    // @returns true if can repair west trap from current location,
-    //          else false
+    /**
+     * checks if this (player) defender can repair the west trap from their
+     * current location
+     *
+     * @param   game_map  the state of the game map
+     * @return            true if this (player) defender can repair the west
+     *                    trap from their current location, else false
+     */
     bool IsInWestRepairRange(GameMap &game_map) const;
 
   private:

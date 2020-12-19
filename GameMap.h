@@ -40,77 +40,227 @@ const int HAMMER_Y = 34;
 
 class GameMap {
   public:
-    // constructor requires to know if it is wave 10 or not
+    /**
+     * constructor specifying whether it is wave 10 or not
+     *
+     * @param is_wave_10    whether it is wave 10 or not
+     */
     GameMap(bool is_wave_10);
 
-    // destructor that does nothing
+    /**
+     * destructor that does nothing
+     */
     ~GameMap() { }
 
+    /**
+     * returns a string representation of this game map
+     *
+     * @return  string representation of this game map
+     */
     std::string ToString() const;
 
+    /**
+     * gets the east trap state
+     *
+     * @return  the east trap state
+     */
     int get_east_trap_state() const { return east_trap_state_; }
 
+    /**
+     * sets the east trap state to the given value
+     *
+     * @param east_trap_state the value to set the east trap state to
+     */
     void set_east_trap_state(int east_trap_state) { east_trap_state_ = east_trap_state; }
 
+    /**
+     * gets the west trap state
+     *
+     * @return  the west trap state
+     */
     int get_west_trap_state() const { return west_trap_state_; }
 
+    /**
+     * sets the west trap state to the given value
+     *
+     * @param west_trap_state the value to set the west trap state to
+     */
     void set_west_trap_state(int west_trap_state) { west_trap_state_ = west_trap_state; }
 
+    /**
+     * gets the nw logs state
+     *
+     * @return  the nw logs state
+     */
     bool get_nw_logs_state() const { return nw_logs_state_; }
 
+    /**
+     * sets the nw logs state to the given value
+     *
+     * @param nw_logs_state the value to set the nw logs state to
+     */
     void set_nw_logs_state(bool nw_logs_state) { nw_logs_state_ = nw_logs_state; }
 
+    /**
+     * gets the se logs state
+     *
+     * @return  the se logs state
+     */
     bool get_se_logs_state() const { return se_logs_state_; }
 
+    /**
+     * sets the se logs state to the given value
+     *
+     * @param se_logs_state the value to set the se logs state to
+     */
     void set_se_logs_state(bool se_logs_state) { se_logs_state_ = se_logs_state; }
 
+    /**
+     * gets the hammer state
+     *
+     * @return  the hammer state
+     */
     bool get_hammer_state() const { return hammer_state_; }
 
+    /**
+     * sets the hammer state to the given value
+     *
+     * @param hammer_state the value to set the hammer state to
+     */
     void set_hammer_state(bool hammer_state) { hammer_state_ = hammer_state; }
 
+    /**
+     * gets the width in tiles
+     *
+     * @return  the width in tiles
+     */
     int get_width_tiles() const { return width_tiles_; }
 
+    /**
+     * sets the width in tiles to the given value
+     *
+     * @param width_tiles the value to set the width in tiles to
+     */
     void set_width_tiles(int width_tiles) { width_tiles_ = width_tiles; }
 
+    /**
+     * gets the height in tiles
+     *
+     * @return  the height in tiles
+     */
     int get_height_tiles() const { return height_tiles_; }
 
+    /**
+     * sets the height in tiles to the given value
+     *
+     * @param height_tiles  the value to set the height in tiles to
+     */
     void set_height_tiles(int height_tiles) { height_tiles_ = height_tiles; }
 
+    /**
+     * gets the layout of this game map
+     *
+     * @return  the layout of this game map
+     */
     std::vector<int> get_layout() const { return layout_; }
 
+    /**
+     * sets the layout of this game map to the given value
+     *
+     * @param layout  the value to set the layout of this game map to
+     */
     void set_layout(std::vector<int> layout) { layout_ = layout; }
 
+    /**
+     * checks if it is wave 10
+     *
+     * @return  true if it is wave 10, else false
+     */
     bool IsWave10() const;
 
-    // adds the given to item_zones_ (the item has a location
-    // stored in it) and the item list
+    /**
+     * adds the given item to this game map (the item has a location
+     * stored in it)
+     *
+     * @param item  the item to add to this game map
+     */
     void AddItem(Item item);
 
     // @returns the item zone (vector of items) corresponding to
     //          the given location (x_zone, y_zone)
+    /**
+     * gets the item zone corresponding to the given location (x_zone, y_zone)
+     *
+     * @param   x_zone  the x coordinate of the location
+     * @param   y_zone  the y coordinate of the location
+     * @return          the item zone corresponding to the given
+     *                  location (x_zone, y_zone)
+     */
     std::vector<Item> &GetItemZone(int x_zone, int y_zone) const;
 
     // @returns the tile flag corresponding to the given location (x, y)
+    /**
+     * gets the tile flag corresponding to the given location (x, y)
+     *
+     * @param   x the x coordinate of the location
+     * @param   y the y coordinate of the location
+     * @return    the tile flag corresponding to the given location (x, y)
+     */
     int GetTileFlag(int x, int y) const;
 
-    // @returns true if an entity can move east from the given
-    //          location (x, y), else false
+    /**
+     * checks if an entity can move east from the given location (x, y)
+     *
+     * @param   x the x coordinate of the location
+     * @param   y the y coordinate of the location
+     * @return    true if an entity can move east from the given location
+     *            (x, y), else false
+     */
     bool CanMoveEast(int x, int y) const;
 
-    // @returns true if an entity can move west from the given
-    //          location (x, y), else false
+    /**
+     * checks if an entity can move west from the given location (x, y)
+     *
+     * @param   x the x coordinate of the location
+     * @param   y the y coordinate of the location
+     * @return    true if an entity can move west from the given location
+     *            (x, y), else false
+     */
     bool CanMoveWest(int x, int y) const;
 
-    // @returns true if an entity can move north from the given
-    //          location (x, y), else false
+    /**
+     * checks if an entity can move north from the given location (x, y)
+     *
+     * @param   x the x coordinate of the location
+     * @param   y the y coordinate of the location
+     * @return    true if an entity can move north from the given location
+     *            (x, y), else false
+     */
     bool CanMoveNorth(int x, int y) const;
 
-    // @returns true if an entity can move south from the given
-    //          location (x, y), else false
+    /**
+     * checks if an entity can move south from the given location (x, y)
+     *
+     * @param   x the x coordinate of the location
+     * @param   y the y coordinate of the location
+     * @return    true if an entity can move south from the given location
+     *            (x, y), else false
+     */
     bool CanMoveSouth(int x, int y) const;
 
     // @returns true if there is a line of sight between the given
     //          locations (x1, y1) and (x2, y2)
+    /**
+     * checks if there is a line of sight between the given locations (x1, y1)
+     * and (x2, y2)
+     *
+     * @param   x1  the x coordinate of the first location
+     * @param   y1  the y coordinate of the first location
+     * @param   x2  the x coordinate of the second location
+     * @param   y2  the y coordinate of the second location
+     * @return      true if there is a line of sight between the given
+     *              locations (x1, y1) and (x2, y2), else false
+     */
     bool HasLineOfSight(int x1, int y1, int x2, int y2) const;
 
   private:
