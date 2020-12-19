@@ -56,7 +56,7 @@ void PlayerDefender::Tick(GameMap &game_map) {
     picking_up_food_ = 'n';
     path_queue_pos_ = 0;
   } else if (picking_up_logs_) {
-    // TODO
+    // TODO: finish this function
   }
 }
 
