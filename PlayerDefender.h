@@ -52,4 +52,4 @@ class PlayerDefender : public Player {
 };  // class PlayerDefender
 
 
-#endif  //BASIMCXX_PLAYERDEFENDER_H
+#endif  // BASIMCXX_PLAYERDEFENDER_H

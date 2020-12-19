@@ -45,37 +45,37 @@ class GameMap {
     // destructor that does nothing
     ~GameMap() { }
 
-    int get_east_trap_state() const;
+    int get_east_trap_state() const { return east_trap_state_; }
 
-    void set_east_trap_state(int east_trap_state);
+    void set_east_trap_state(int east_trap_state) { east_trap_state_ = east_trap_state; }
 
-    int get_west_trap_state() const;
+    int get_west_trap_state() const { return west_trap_state_; }
 
-    void set_west_trap_state(int west_trap_state);
+    void set_west_trap_state(int west_trap_state) { west_trap_state_ = west_trap_state; }
 
-    bool get_nw_logs_state() const;
+    bool get_nw_logs_state() const { return nw_logs_state_; }
 
-    void set_nw_logs_state(bool nw_logs_state);
+    void set_nw_logs_state(bool nw_logs_state) { nw_logs_state_ = nw_logs_state; }
 
-    bool get_se_logs_state() const;
+    bool get_se_logs_state() const { return se_logs_state_; }
 
-    void set_se_logs_state(bool se_logs_state);
+    void set_se_logs_state(bool se_logs_state) { se_logs_state_ = se_logs_state; }
 
-    bool get_hammer_state() const;
+    bool get_hammer_state() const { return hammer_state_; }
 
-    void set_hammer_state(bool hammer_state);
+    void set_hammer_state(bool hammer_state) { hammer_state_ = hammer_state; }
 
-    int get_width_tiles() const;
+    int get_width_tiles() const { return width_tiles_; }
 
-    void set_width_tiles(int width_tiles);
+    void set_width_tiles(int width_tiles) { width_tiles_ = width_tiles; }
 
-    int get_height_tiles() const;
+    int get_height_tiles() const { return height_tiles_; }
 
-    void set_height_tiles(int height_tiles);
+    void set_height_tiles(int height_tiles) { height_tiles_ = height_tiles; }
 
-    std::vector<int> get_layout() const;
+    std::vector<int> get_layout() const { return layout_; }
 
-    void set_layout(std::vector<int> layout);
+    void set_layout(std::vector<int> layout) { layout_ = layout; }
 
     bool IsWave10() const;
 
@@ -122,4 +122,4 @@ class GameMap {
 };  // class GameMap
 
 
-#endif  //BASIMCXX_GAMEMAP_H
+#endif  // BASIMCXX_GAMEMAP_H

@@ -38,4 +38,4 @@ class Player {
 };  // class Player
 
 
-#endif  //BASIMCXX_PLAYER_H
+#endif  // BASIMCXX_PLAYER_H

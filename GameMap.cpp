@@ -28,3 +28,21 @@ GameMap::GameMap(bool is_wave_10) : is_wave_10_(is_wave_10) {
   east_trap_state_ = 2;
   west_trap_state_ = 2;
 }
+
+bool GameMap::IsWave10() const;
+
+void GameMap::AddItem(Item item);
+
+std::vector<Item> &GameMap::GetItemZone(int x_zone, int y_zone) const;
+
+int GameMap::GetTileFlag(int x, int y) const;
+
+bool GameMap::CanMoveEast(int x, int y) const;
+
+bool GameMap::CanMoveWest(int x, int y) const;
+
+bool GameMap::CanMoveNorth(int x, int y) const;
+
+bool GameMap::CanMoveSouth(int x, int y) const;
+
+bool GameMap::HasLineOfSight(int x1, int y1, int x2, int y2) const;
