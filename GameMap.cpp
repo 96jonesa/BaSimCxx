@@ -2,7 +2,10 @@
 // Created by Andy on 12/18/2020.
 //
 
+#include <string>
+
 #include "GameMap.h"
+#include "Item.h"
 
 GameMap::GameMap(bool is_wave_10) : is_wave_10_(is_wave_10) {
   if (is_wave_10) {
@@ -27,6 +30,10 @@ GameMap::GameMap(bool is_wave_10) : is_wave_10_(is_wave_10) {
 
   east_trap_state_ = 2;
   west_trap_state_ = 2;
+}
+
+std::string GameMap::ToString() const {
+  return "";
 }
 
 bool GameMap::IsWave10() const;

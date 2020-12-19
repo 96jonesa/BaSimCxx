@@ -8,6 +8,7 @@
 
 #include "PlayerDefender.h"
 #include "Item.h"
+#include "GameMap.h"
 
 std::string PlayerDefender::ToString() const {
   return "";

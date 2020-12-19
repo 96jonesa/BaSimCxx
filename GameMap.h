@@ -7,6 +7,7 @@
 
 #include <vector>
 #include <map>
+#include <string>
 
 #include "Item.h"
 
@@ -44,6 +45,8 @@ class GameMap {
 
     // destructor that does nothing
     ~GameMap() { }
+
+    std::string ToString() const;
 
     int get_east_trap_state() const { return east_trap_state_; }
 

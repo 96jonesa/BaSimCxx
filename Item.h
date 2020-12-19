@@ -5,12 +5,17 @@
 #ifndef BASIMCXX_ITEM_H
 #define BASIMCXX_ITEM_H
 
+#include <string>
 
 class Item {
   public:
-    Item(int x, int y, bool is_good, char type) : x_(x), y_(y), is_good_(is_good), type_(type) { }
+    Item() : is_null_(true) { }
 
-    ~Item();
+    Item(int x, int y, bool is_good, char type);
+
+    ~Item() { };
+
+    std::string ToString() const;
 
     int get_x() const { return x_; }
 
@@ -28,10 +33,21 @@ class Item {
 
     void set_type(char type) { type_ = type; }
 
+    int get_id() const { return id_; }
+
+    void set_id(int id) { id_ = id; }
+
+    bool get_is_null() const { return is_null_; }
+
+    void set_is_null(bool is_null) { is_null_ = is_null; }
+
   private:
+    static int next_id_;
     int x_, y_;
     bool is_good_;
     char type_;
+    int id_;
+    bool is_null_;
 };  // class Item
 
 
