@@ -4,7 +4,7 @@
 
 #include "GameMap.h"
 
-GameMap::GameMap(bool is_wave_10) {
+GameMap::GameMap(bool is_wave_10) : is_wave_10_(is_wave_10) {
   if (is_wave_10) {
     layout_ = WAVE_10_MAP;
     width_tiles_ = 64;

@@ -31,7 +31,7 @@ class PlayerDefender : public Player {
     // finds the path from this player's current location (x_, y_)
     // to the given destination (dest_x, dest_y) and updates this
     // player's state accordingly
-    void PathFind(int dest_x, int dest_y) override;
+    void PathFind(GameMap &game_map, int dest_x, int dest_y) override;
 
     // @returns true if can repair east trap from current location,
     //          else false
@@ -48,6 +48,7 @@ class PlayerDefender : public Player {
     int stand_still_counter_ = 0;
     int num_logs_ = 0;
     int num_tofu_ = 9, num_crackers_ = 9, num_worms_ = 9;
+    bool has_hammer_ = false;
 };  // class PlayerDefender
 
 

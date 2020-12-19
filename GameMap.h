@@ -26,6 +26,16 @@ const int WEST_TRAP_X = 15;
 const int WEST_TRAP_Y = 25;
 const int EAST_TRAP_X = 45;
 const int EAST_TRAP_Y = 26;
+const int WAVE1_NW_LOGS_X = 28;
+const int WAVE1_NW_LOGS_Y = 39;
+const int WAVE10_NW_LOGS_X = 29;
+const int WAVE10_NW_LOGS_Y = 39;
+const int WAVE1_SE_LOGS_X = 29;
+const int WAVE1_SE_LOGS_Y = 38;
+const int WAVE10_SE_LOGS_X = 30;
+const int WAVE10_SE_LOGS_Y = 38;
+const int HAMMER_X = 32;
+const int HAMMER_Y = 34;
 
 class GameMap {
   public:
@@ -37,11 +47,37 @@ class GameMap {
 
     int get_east_trap_state() const;
 
-    int set_east_trap_state(int east_trap_state);
+    void set_east_trap_state(int east_trap_state);
 
     int get_west_trap_state() const;
 
-    int set_west_trap_state(int west_trap_state);
+    void set_west_trap_state(int west_trap_state);
+
+    bool get_nw_logs_state() const;
+
+    void set_nw_logs_state(bool nw_logs_state);
+
+    bool get_se_logs_state() const;
+
+    void set_se_logs_state(bool se_logs_state);
+
+    bool get_hammer_state() const;
+
+    void set_hammer_state(bool hammer_state);
+
+    int get_width_tiles() const;
+
+    void set_width_tiles(int width_tiles);
+
+    int get_height_tiles() const;
+
+    void set_height_tiles(int height_tiles);
+
+    std::vector<int> get_layout() const;
+
+    void set_layout(std::vector<int> layout);
+
+    bool IsWave10() const;
 
     // adds the given to item_zones_ (the item has a location
     // stored in it) and the item list
@@ -75,11 +111,14 @@ class GameMap {
     bool HasLineOfSight(int x1, int y1, int x2, int y2) const;
 
   private:
+    bool is_wave_10_;
     std::vector<int> layout_;
     int width_tiles_, height_tiles_;
     std::map<int, std::vector<Item>> item_zones_;
     int item_zones_width_, item_zones_height_;
     int east_trap_state_, west_trap_state_;
+    bool nw_logs_state_ = true, se_logs_state_ = true;
+    bool hammer_state_ = true;
 };  // class GameMap
 
 
