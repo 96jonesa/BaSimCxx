@@ -5,6 +5,8 @@
 #ifndef BASIMCXX_GAMEMAP_H
 #define BASIMCXX_GAMEMAP_H
 
+class Player;
+
 #include <vector>
 #include <map>
 #include <string>
