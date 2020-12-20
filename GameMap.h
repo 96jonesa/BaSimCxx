@@ -192,7 +192,7 @@ class GameMap {
      *
      * @return  the layout of this game map
      */
-    std::vector<int> &get_layout() const { return layout_; }
+    std::vector<int> &get_layout() { return layout_; }
 
     /**
      * sets the layout of this game map to the given value
@@ -293,7 +293,7 @@ class GameMap {
      *
      * @return  the runners to remove of this game map
      */
-    std::vector< std::shared_ptr<PenanceRunner> > &get_runners_to_remove() const { return runners_to_remove_; }
+    std::vector< std::shared_ptr<PenanceRunner> > &get_runners_to_remove() { return runners_to_remove_; }
 
     /**
      * sets the runners to remove of this game map to the given value
@@ -365,7 +365,7 @@ class GameMap {
     bool hammer_state_ = true;
     std::vector< std::shared_ptr<PenanceRunner> > runners_to_remove_;
     int runners_alive_ = 0;
-    int runners_killed = 0;
+    int runners_killed_ = 0;
     std::vector< std::shared_ptr<Player> > players_;
     int runner_sniff_distance_ = 5;
 };  // class GameMap
