@@ -27,7 +27,7 @@ GameMap::GameMap(bool is_wave_10) : is_wave_10_(is_wave_10) {
 
   for (int x_zone = 0; x_zone < item_zones_width_; x_zone++) {
     for (int y_zone = 0; y_zone < item_zones_height_; y_zone++) {
-     (*item_zones_)[x_zone + item_zones_width_ * y_zone] = new std::vector< std::shared_ptr<Item> >();
+     item_zones_[x_zone + item_zones_width_ * y_zone] = new std::vector< std::shared_ptr<Item> >();
     }
   }
 
@@ -162,8 +162,8 @@ bool GameMap::HasLineOfSight(int x1, int y1, int x2, int y2) {
 }
 
 bool GameMap::TileBlocksPenance(int x, int y) {
-  for (Player &player : players_) {
-    if ((x == player.get_x()) && (y = player.get_y())) {
+  for (std::shared_ptr<Player> &player : players_) {
+    if ((x == player->get_x()) && (y = player->get_y())) {
       return true;
     }
   }
