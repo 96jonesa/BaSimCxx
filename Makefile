@@ -7,7 +7,7 @@ all: basimcxx
 basimcxx: SandBox.o PlayerDefender.o GameMap.o Item.o
 	g++ -Wall -g -std=c++11 -o basimcxx SandBox.o PlayerDefender.o GameMap.o Item.o
 
-SandBox.o: SandBox.cc PlayerDefender.h GameMap.h Item.h
+SandBox.o: SandBox.cpp PlayerDefender.h GameMap.h Item.h
 	g++ -Wall -g -std=c++11 -c SandBox.cpp
 
 PlayerDefender.o: PlayerDefender.cpp PlayerDefender.h GameMap.h Item.h
