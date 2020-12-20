@@ -38,7 +38,7 @@ void PlayerDefender::Tick(GameMap &game_map) {
   } else if (picking_up_food_ != 'n') {
     std::vector< std::shared_ptr<Item> > &item_zone = game_map.GetItemZone(x_ >> 3, x_ >> 3);
 
-    for (int i = 0; i < item_zone.size(); i++) {
+    for (size_t i = 0; i < item_zone.size(); i++) {
       Item &item = *item_zone[i];
       if ((x_ == item.get_x()) && (y_ == item.get_y()) && (item.get_type() == picking_up_food_)) {
         item_zone.erase(item_zone.begin() + i);
