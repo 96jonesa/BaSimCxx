@@ -7,6 +7,8 @@
 
 #include <string>
 
+#include "GameMap.h"
+
 /**
  * class that represents a player
  */
@@ -32,7 +34,7 @@ class Player {
      *
      * @param game_map
      */
-    virtual void Tick(GameMape &game_map);
+    virtual void Tick(GameMap &game_map);
 
     /**
      * finds the path from this player's current location (x_, y_)
