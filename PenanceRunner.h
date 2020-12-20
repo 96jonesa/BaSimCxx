@@ -19,7 +19,7 @@ class PenanceRunner {
   public:
     PenanceRunner(int x, int y);
 
-    ~PenanceRunner();
+    ~PenanceRunner() { };
 
     std::string ToString() const;
 

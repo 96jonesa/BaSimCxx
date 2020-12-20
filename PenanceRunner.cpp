@@ -202,3 +202,5 @@ bool PenanceRunner::IsNearEastTrap(GameMap &gameMap) const {
 bool PenanceRunner::IsNearWestTrap(GameMap &gameMap) const {
   return true;
 }
+
+int PenanceRunner::next_id_ = 0;
