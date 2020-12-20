@@ -34,7 +34,7 @@ class Player {
      *
      * @param game_map
      */
-    virtual void Tick(GameMap &game_map);
+    virtual void Tick(GameMap &game_map) = 0;
 
     /**
      * finds the path from this player's current location (x_, y_)
@@ -45,7 +45,7 @@ class Player {
      * @param dest_x    the x coordinate of the destination
      * @param dest_y    the y coordinate of the destination
      */
-    virtual void PathFind(GameMap &game_map, int dest_x, int dest_y);
+    virtual void PathFind(GameMap &game_map, int dest_x, int dest_y) = 0;
 
     /**
      * virtual destructor that does nothing
