@@ -184,7 +184,7 @@ class GameMap {
      *
      * @param item  the item to add to this game map
      */
-    void AddItem(Item item);
+    void AddItem(Item &item);
 
     // @returns the item zone (vector of items) corresponding to
     //          the given location (x_zone, y_zone)
