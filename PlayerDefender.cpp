@@ -145,7 +145,7 @@ void PlayerDefender::PathFind(GameMap &game_map, int dest_x, int dest_y) {
       shortest_distances_[index] = new_distance;
     }
 
-    int index = current_x + 1 + current_y * width_tiles;
+    index = current_x + 1 + current_y * width_tiles;
 
     if ((current_x < width_tiles - 1) && (way_points_[index] == 0) && ((layout[index] & 19136896) == 0)) {
       path_queue_x_[path_queue_end] = current_x + 1;
@@ -155,7 +155,7 @@ void PlayerDefender::PathFind(GameMap &game_map, int dest_x, int dest_y) {
       shortest_distances_[index] = new_distance;
     }
 
-    int index = current_x + (current_y - 1) * width_tiles;
+    index = current_x + (current_y - 1) * width_tiles;
 
     if ((current_y > 0) && (way_points_[index] == 0) && ((layout[index] & 19136770) == 0)) {
       path_queue_x_[path_queue_end] = current_x;
@@ -165,7 +165,7 @@ void PlayerDefender::PathFind(GameMap &game_map, int dest_x, int dest_y) {
       shortest_distances_[index] = new_distance;
     }
 
-    int index = current_x + (current_y + 1) * width_tiles;
+    index = current_x + (current_y + 1) * width_tiles;
 
     if ((current_y < height_tiles - 1) && (way_points_[index] == 0) && ((layout[index] & 19136800) == 0)) {
       path_queue_x_[path_queue_end] = current_x;
@@ -175,7 +175,7 @@ void PlayerDefender::PathFind(GameMap &game_map, int dest_x, int dest_y) {
       shortest_distances_[index] = new_distance;
     }
 
-    int index = current_x - 1 + (current_y - 1) * width_tiles;
+    index = current_x - 1 + (current_y - 1) * width_tiles;
 
     if ((current_x > 0) &&
         (current_y > 0) &&
@@ -190,7 +190,7 @@ void PlayerDefender::PathFind(GameMap &game_map, int dest_x, int dest_y) {
       shortest_distances_[index] = new_distance;
     }
 
-    int index = current_x + 1 + (current_y - 1) * width_tiles;
+    index = current_x + 1 + (current_y - 1) * width_tiles;
 
     if ((current_x < width_tiles - 1) &&
         (current_y > 0) &&
@@ -205,7 +205,7 @@ void PlayerDefender::PathFind(GameMap &game_map, int dest_x, int dest_y) {
       shortest_distances_[index] = new_distance;
     }
 
-    int index = current_x - 1 + (current_y + 1) * width_tiles;
+    index = current_x - 1 + (current_y + 1) * width_tiles;
 
     if ((current_x > 0) &&
         (current_y < height_tiles - 1) &&
@@ -220,7 +220,7 @@ void PlayerDefender::PathFind(GameMap &game_map, int dest_x, int dest_y) {
       shortest_distances_[index] = new_distance;
     }
 
-    int index = current_x + 1 + (current_y + 1) * width_tiles;
+    index = current_x + 1 + (current_y + 1) * width_tiles;
 
     if ((current_x < width_tiles - 1) &&
         (current_y < height_tiles - 1) &&
@@ -293,9 +293,9 @@ void PlayerDefender::PathFind(GameMap &game_map, int dest_x, int dest_y) {
 }
 
 bool PlayerDefender::IsInEastRepairRange(GameMap &game_map) const {
-  return std::abs(x_ - EAST_TRAP_X) + std::abs(y - EAST_TRAP_Y) < 2;
+  return std::abs(x_ - EAST_TRAP_X) + std::abs(y_ - EAST_TRAP_Y) < 2;
 }
 
 bool PlayerDefender::IsInWestRepairRange(GameMap &game_map) const {
-  return std::abs(x_ - WEST_TRAP_X) + std::abs(y - WEST_TRAP_Y) < 2;
+  return std::abs(x_ - WEST_TRAP_X) + std::abs(y_ - WEST_TRAP_Y) < 2;
 }
