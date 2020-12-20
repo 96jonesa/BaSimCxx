@@ -53,23 +53,23 @@ int GameMap::GetTileFlag(int x, int y) {
   return layout_[x + y * width_tiles_];
 }
 
-bool GameMap::CanMoveEast(int x, int y) const {
+bool GameMap::CanMoveEast(int x, int y) {
   return (GetTileFlag(x + 1, y) & (MOVE_WEST_MASK | MOVE_FULL_MASK)) == 0;
 }
 
-bool GameMap::CanMoveWest(int x, int y) const {
+bool GameMap::CanMoveWest(int x, int y) {
   return (GetTileFlag(x - 1, y) & (MOVE_EAST_MASK | MOVE_FULL_MASK)) == 0;
 }
 
-bool GameMap::CanMoveNorth(int x, int y) const {
+bool GameMap::CanMoveNorth(int x, int y) {
   return (GetTileFlag(x, y + 1) & (MOVE_SOUTH_MASK | MOVE_FULL_MASK)) == 0;
 }
 
-bool GameMap::CanMoveSouth(int x, int y) const {
+bool GameMap::CanMoveSouth(int x, int y) {
   return (GetTileFlag(x, y - 1) & (MOVE_NORTH_MASK | MOVE_FULL_MASK)) == 0;
 }
 
-bool GameMap::HasLineOfSight(int x1, int y1, int x2, int y2) const {
+bool GameMap::HasLineOfSight(int x1, int y1, int x2, int y2) {
   int dx = x2 - x1;
   int dx_abs = std::abs(dx);
   int dy = y2 - y1;

@@ -216,7 +216,7 @@ class GameMap {
      * @return    true if an entity can move east from the given location
      *            (x, y), else false
      */
-    bool CanMoveEast(int x, int y) const;
+    bool CanMoveEast(int x, int y);
 
     /**
      * checks if an entity can move west from the given location (x, y)
@@ -226,7 +226,7 @@ class GameMap {
      * @return    true if an entity can move west from the given location
      *            (x, y), else false
      */
-    bool CanMoveWest(int x, int y) const;
+    bool CanMoveWest(int x, int y);
 
     /**
      * checks if an entity can move north from the given location (x, y)
@@ -236,7 +236,7 @@ class GameMap {
      * @return    true if an entity can move north from the given location
      *            (x, y), else false
      */
-    bool CanMoveNorth(int x, int y) const;
+    bool CanMoveNorth(int x, int y);
 
     /**
      * checks if an entity can move south from the given location (x, y)
@@ -246,7 +246,7 @@ class GameMap {
      * @return    true if an entity can move south from the given location
      *            (x, y), else false
      */
-    bool CanMoveSouth(int x, int y) const;
+    bool CanMoveSouth(int x, int y);
 
     // @returns true if there is a line of sight between the given
     //          locations (x1, y1) and (x2, y2)
@@ -261,7 +261,7 @@ class GameMap {
      * @return      true if there is a line of sight between the given
      *              locations (x1, y1) and (x2, y2), else false
      */
-    bool HasLineOfSight(int x1, int y1, int x2, int y2) const;
+    bool HasLineOfSight(int x1, int y1, int x2, int y2);
 
   private:
     bool is_wave_10_;
