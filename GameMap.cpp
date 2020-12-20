@@ -24,7 +24,7 @@ GameMap::GameMap(bool is_wave_10) : is_wave_10_(is_wave_10) {
 
   for (int x_zone = 0; x_zone < item_zones_width_; x_zone++) {
     for (int y_zone = 0; y_zone < item_zones_height_; y_zone++) {
-      vector<Item> items;
+      std::vector<Item> items;
       item_zones_[x_zone + item_zones_width_ * y_zone] = items;
     }
   }
@@ -46,7 +46,7 @@ void GameMap::AddItem(Item &item) {
 }
 
 std::vector<Item> &GameMap::GetItemZone(int x_zone, int y_zone) const {
-  return item_zones_[x_zone + y_zone * item_zones_width_];
+  return item_zones_.at(x_zone + y_zone * item_zones_width_);
 }
 
 int GameMap::GetTileFlag(int x, int y) const {
