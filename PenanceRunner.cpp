@@ -32,7 +32,7 @@ void PenanceRunner::Tick(GameMap &game_map) {
 
     if (despawn_countdown_ == 0) {
       std::vector< std::shared_ptr<PenanceRunner> > &runners_to_remove = game_map.get_runners_to_remove();
-      runners_to_remove.push_back(this);
+      runners_to_remove.push_back(std::shared_ptr<PenanceRunner>(this));
 
       if (!is_dying_) {
         game_map.set_runners_alive(game_map.get_runners_alive() - 1);
