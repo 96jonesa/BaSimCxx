@@ -196,7 +196,7 @@ class GameMap {
      * @return          the item zone corresponding to the given
      *                  location (x_zone, y_zone)
      */
-    std::vector<Item> &GetItemZone(int x_zone, int y_zone) const;
+    std::vector<Item> &GetItemZone(int x_zone, int y_zone);
 
     // @returns the tile flag corresponding to the given location (x, y)
     /**
@@ -206,7 +206,7 @@ class GameMap {
      * @param   y the y coordinate of the location
      * @return    the tile flag corresponding to the given location (x, y)
      */
-    int GetTileFlag(int x, int y) const;
+    int GetTileFlag(int x, int y);
 
     /**
      * checks if an entity can move east from the given location (x, y)

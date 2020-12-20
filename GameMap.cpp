@@ -45,11 +45,11 @@ void GameMap::AddItem(Item &item) {
   GetItemZone(item.get_x() >> 3, item.get_y() >> 3).push_back(item);
 }
 
-std::vector<Item> &GameMap::GetItemZone(int x_zone, int y_zone) const {
-  return item_zones_.find(x_zone + y_zone * item_zones_width_)->second;
+std::vector<Item> &GameMap::GetItemZone(int x_zone, int y_zone) {
+  return item_zones_[x_zone + y_zone * item_zones_width_];
 }
 
-int GameMap::GetTileFlag(int x, int y) const {
+int GameMap::GetTileFlag(int x, int y) {
   return layout_[x + y * width_tiles_];
 }
 
