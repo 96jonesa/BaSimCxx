@@ -143,7 +143,7 @@ void PenanceRunner::TryTargetFood(GameMap &game_map) {
           first_food_found = food;
         }
 
-        if (std::max(std::abs<int>(x_, food->get_x()), std::abs<int>(y_, food->get_y())) <= runner_sniff_distance) {
+        if (std::max(std::abs(x_ - food->get_x()), std::abs(y_ - food->get_y())) <= runner_sniff_distance) {
           food_target_ = food;
           destination_x_ = first_food_found->get_x();
           destination_y_ = first_food_found->get_y();
