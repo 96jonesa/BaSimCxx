@@ -6,6 +6,7 @@
 #define BASIMCXX_PLAYER_H
 
 #include <string>
+#include <vector>
 
 #include "GameMap.h"
 
