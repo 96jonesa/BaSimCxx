@@ -46,7 +46,7 @@ void GameMap::AddItem(Item &item) {
 }
 
 std::vector<Item> &GameMap::GetItemZone(int x_zone, int y_zone) const {
-  return item_zones_.at(x_zone + y_zone * item_zones_width_);
+  return item_zones_.find(x_zone + y_zone * item_zones_width_)->second;
 }
 
 int GameMap::GetTileFlag(int x, int y) const {
