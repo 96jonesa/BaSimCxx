@@ -32,7 +32,7 @@ void PenanceRunner::Tick(GameMap &game_map) {
 
     if (despawn_countdown_ == 0) {
       std::vector< std::shared_ptr<PenanceRunner> > &runners_to_remove = game_map.get_runners_to_remove();
-      runners_to_remove.push_back(&this);
+      runners_to_remove.push_back(this);
 
       if (!is_dying_) {
         game_map.set_runners_alive(game_map.get_runners_alive() - 1);
@@ -135,7 +135,7 @@ void PenanceRunner::TryTargetFood(GameMap &game_map) {
       for (int food_index = item_zone.size() - 1; food_index >= 0; food_index--) {
         std::shared_ptr<Item> food = item_zone[food_index];
 
-        if (!game_map.HasLineOfSight(x_, y_, food.get_x(), food.get_y())) {
+        if (!game_map.HasLineOfSight(x_, y_, food->get_x(), food->get_y())) {
           continue;
         }
 
@@ -143,7 +143,7 @@ void PenanceRunner::TryTargetFood(GameMap &game_map) {
           first_food_found = food;
         }
 
-        if (std::max(std::abs(x_, food.get_x()), std::abs(y_, food.get_y())) <= runner_sniff_distance) {
+        if (std::max(std::abs(x_, food->get_x()), std::abs(y_, food->get_y())) <= runner_sniff_distance) {
           food_target_ = food;
           destination_x_ = first_food_found->get_x();
           destination_y_ = first_food_found->get_y();
