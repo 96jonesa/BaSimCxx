@@ -7,6 +7,7 @@
 #include <vector>
 
 #include "PlayerDefender.h"
+#include "Player.h"
 #include "Item.h"
 #include "GameMap.h"
 
