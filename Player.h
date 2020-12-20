@@ -5,6 +5,8 @@
 #ifndef BASIMCXX_PLAYER_H
 #define BASIMCXX_PLAYER_H
 
+class GameMap;
+
 #include <string>
 #include <vector>
 

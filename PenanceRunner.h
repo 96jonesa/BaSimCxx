@@ -5,11 +5,15 @@
 #ifndef BASIMCXX_PENANCERUNNER_H
 #define BASIMCXX_PENANCERUNNER_H
 
+class GameMap;
+
 #include <string>
 #include <memory>
 
 #include "Item.h"
 #include "GameMap.h"
+
+
 
 class PenanceRunner {
   public:

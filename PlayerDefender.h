@@ -5,6 +5,8 @@
 #ifndef BASIMCXX_PLAYERDEFENDER_H
 #define BASIMCXX_PLAYERDEFENDER_H
 
+class GameMap;
+
 #include <string>
 #include <vector>
 
