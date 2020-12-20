@@ -126,7 +126,7 @@ bool GameMap::HasLineOfSight(int x1, int y1, int x2, int y2) const {
       y_inc = 1;
       y_mask = LOS_SOUTH_MASK | LOS_FULL_MASK;
     } else {
-      x_inc = -1;
+      y_inc = -1;
       y_mask = LOS_NORTH_MASK | LOS_FULL_MASK;
     }
 
@@ -144,7 +144,7 @@ bool GameMap::HasLineOfSight(int x1, int y1, int x2, int y2) const {
       y_tile += y_inc;
       int x_tile = x >> 16;
       if ((GetTileFlag(x_tile, y_tile) & y_mask) != 0) {
-        return false
+        return false;
       }
 
       x += slope;
