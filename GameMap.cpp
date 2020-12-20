@@ -158,3 +158,27 @@ bool GameMap::HasLineOfSight(int x1, int y1, int x2, int y2) {
 
   return true;
 }
+
+bool GameMap::TileBlocksPenance(int x, int y) {
+  for (Player &player : players_) {
+    if ((x == player.get_x()) && (y = player.get_y())) {
+      return true;
+    }
+  }
+
+  if (y == 22) {
+    if ((x >= 20) && (x <= 22)) {
+      return true;
+    }
+
+    if ((!is_wave_10_) && (x >= 39) && (x <= 41)) {
+      return true;
+    }
+  } else if ((x == 46) && (y >= 9) && (y <= 12)) {
+    return true;
+  } else if ((!is_wave_10_) && (x == 27) && (y == 24)) {
+    return true;
+  }
+
+  return false;
+}

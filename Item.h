@@ -61,7 +61,7 @@ class Item {
     /**
      * sets the y coordinate of this item to the given value
      *
-     * @param x the value to set the y coordinate of this item to
+     * @param y the value to set the y coordinate of this item to
      */
     void set_y(int y) { y_ = y; }
 

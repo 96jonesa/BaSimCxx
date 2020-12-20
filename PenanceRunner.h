@@ -12,7 +12,7 @@
 
 class PenanceRunner {
   public:
-    PenanceRunner();
+    PenanceRunner(int x, int y);
 
     ~PenanceRunner();
 
@@ -20,7 +20,7 @@ class PenanceRunner {
 
     void Tick(GameMap &game_map);
 
-    void DoMovement();
+    void DoMovement(GameMap &game_map);
 
     void TryTargetFood();
 
@@ -44,6 +44,26 @@ class PenanceRunner {
 
     void DoTick7To10();
 
+    /**
+     * checks if this penance runner can be killed by the east trap at its
+     * current location
+     *
+     * @param   game_map  the state of the game map
+     * @return            true if this penance runner can be killed by the
+     *                    east trap at its current location, else false
+     */
+    bool IsNearEastTrap(GameMap &gameMap) const;
+
+    /**
+     * checks if this penance runner can be killed by the west trap at its
+     * current location
+     *
+     * @param   game_map  the state of the game map
+     * @return            true if this penance runner can be killed by the
+     *                    west trap at its current location, else false
+     */
+    bool IsNearWestTrap(GameMap &gameMap) const;
+
   private:
     static int next_id_;
     int x_, y_;
@@ -57,6 +77,7 @@ class PenanceRunner {
     bool is_dying_ = false;
     // runner_rng
     int id_;
+    int forced_movements_index_ = 0;
 };
 
 

@@ -52,6 +52,34 @@ class Player {
      */
     virtual ~Player() { }
 
+    /**
+     * gets the x coordinate of this player
+     *
+     * @return  the x coordinate of this player
+     */
+    int get_x() const { return x_; }
+
+    /**
+     * sets the x coordinate of this player to the given value
+     *
+     * @param x the value to set the x coordinate of this player to
+     */
+    void set_x(int x) { x_ = x; }
+
+    /**
+     * gets the y coordinate of this player
+     *
+     * @return  the y coordinate of this player
+     */
+    int get_y() const { return y_; }
+
+    /**
+     * sets the y coordinate of this player to the given value
+     *
+     * @param y the value to set the y coordinate of this player to
+     */
+    void set_y(int y) { y_ = y; }
+
   protected:
     int x_, y_;
     int path_queue_pos_;
