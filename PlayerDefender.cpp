@@ -5,6 +5,7 @@
 #include <cmath>
 #include <string>
 #include <vector>
+#include <memory>
 
 #include "PlayerDefender.h"
 #include "Item.h"
@@ -35,10 +36,10 @@ void PlayerDefender::Tick(GameMap &game_map) {
     path_queue_pos_ = 0;
     picking_up_food_ = 'n';
   } else if (picking_up_food_ != 'n') {
-    std::vector<Item> &item_zone = game_map.GetItemZone(x_ >> 3, x_ >> 3);
+    std::vector< std::shared_ptr<Item> > &item_zone = game_map.GetItemZone(x_ >> 3, x_ >> 3);
 
     for (int i = 0; i < item_zone.size(); i++) {
-      Item item = item_zone[i];
+      Item &item = *item_zone[i];
       if ((x_ == item.get_x()) && (y_ == item.get_y()) && (item.get_type() == picking_up_food_)) {
         item_zone.erase(item_zone.begin() + i);
 

@@ -4,6 +4,8 @@
 
 #include <string>
 #include <cmath>
+#include <vector>
+#include <memory>
 
 #include "GameMap.h"
 #include "Item.h"
@@ -24,8 +26,7 @@ GameMap::GameMap(bool is_wave_10) : is_wave_10_(is_wave_10) {
 
   for (int x_zone = 0; x_zone < item_zones_width_; x_zone++) {
     for (int y_zone = 0; y_zone < item_zones_height_; y_zone++) {
-      std::vector<Item> items;
-      item_zones_[x_zone + item_zones_width_ * y_zone] = items;
+     (*item_zones_)[x_zone + item_zones_width_ * y_zone] = new std::vector< std::shared_ptr<Item> >();
     }
   }
 
@@ -41,12 +42,12 @@ bool GameMap::IsWave10() const {
   return is_wave_10_;
 }
 
-void GameMap::AddItem(Item &item) {
-  GetItemZone(item.get_x() >> 3, item.get_y() >> 3).push_back(item);
+void GameMap::AddItem(std::shared_ptr<Item> item) {
+  GetItemZone(item->get_x() >> 3, item->get_y() >> 3).push_back(item);
 }
 
-std::vector<Item> &GameMap::GetItemZone(int x_zone, int y_zone) {
-  return item_zones_[x_zone + y_zone * item_zones_width_];
+std::vector< std::shared_ptr<Item> > &GameMap::GetItemZone(int x_zone, int y_zone) {
+  return *item_zones_[x_zone + y_zone * item_zones_width_];
 }
 
 int GameMap::GetTileFlag(int x, int y) {

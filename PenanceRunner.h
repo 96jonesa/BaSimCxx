@@ -6,6 +6,7 @@
 #define BASIMCXX_PENANCERUNNER_H
 
 #include <string>
+#include <memory>
 
 #include "Item.h"
 #include "GameMap.h"
@@ -22,7 +23,7 @@ class PenanceRunner {
 
     void DoMovement(GameMap &game_map);
 
-    void TryTargetFood();
+    void TryTargetFood(GameMap &game_map);
 
     bool TryEatAndCheckTarget();
 
@@ -70,7 +71,7 @@ class PenanceRunner {
     int destination_x_, destination_y_;
     int cycle_tick_ = 1;
     int target_state_ = 0;
-    Item food_target_;
+    std::shared_ptr<Item> food_target_;
     int blughhhh_countdown_ = 0;
     int stand_still_counter_ = 0;
     int despawn_countdown_ = -1;

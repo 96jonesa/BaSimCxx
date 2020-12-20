@@ -3,8 +3,13 @@
 //
 
 #include <string>
+#include <algorithm>
+#include <vector>
+#include <memory>
 
 #include "PenanceRunner.h"
+#include "GameMap.h"
+#include "Item.h"
 
 PenanceRunner::PenanceRunner(int x, int y)
     : x_(x), y_(y), destination_x_(x), destination_y_(y), id_(next_id_++) { }
@@ -26,8 +31,8 @@ void PenanceRunner::Tick(GameMap &game_map) {
     despawn_countdown_--;
 
     if (despawn_countdown_ == 0) {
-      std::vector<PenanceRunner> &runners_to_remove = game_map.get_runners_to_remove();
-      runners_to_remove.push_back(this);
+      std::vector< std::shared_ptr<PenanceRunner> > &runners_to_remove = game_map.get_runners_to_remove();
+      runners_to_remove.push_back(&this);
 
       if (!is_dying_) {
         game_map.set_runners_alive(game_map.get_runners_alive() - 1);
@@ -113,8 +118,41 @@ void PenanceRunner::DoMovement(GameMap &game_map) {
   }
 }
 
-void PenanceRunner::TryTargetFood() {
+void PenanceRunner::TryTargetFood(GameMap &game_map) {
+  int x_zone = x_ >> 3;
+  int y_zone = y_ >> 3;
+  std::shared_ptr<Item> first_food_found(new Item());
+  int end_x_zone = std::max(x_zone - 1, 0);
+  int end_y_zone = std::max(y_zone - 1, 0);
+  int item_zones_width = game_map.get_item_zones_width();
+  int item_zones_height = game_map.get_item_zones_height();
+  int runner_sniff_distance = game_map.get_runner_sniff_distance();
 
+  for (int x = std::min(x_zone + 1, item_zones_width - 1); x >= end_x_zone; x--) {
+    for (int y = std::min(y_zone + 1, item_zones_height - 1); y >= end_y_zone; y--) {
+      std::vector< std::shared_ptr<Item> > &item_zone = game_map.GetItemZone(x, y);
+
+      for (int food_index = item_zone.size() - 1; food_index >= 0; food_index--) {
+        std::shared_ptr<Item> food = item_zone[food_index];
+
+        if (!game_map.HasLineOfSight(x_, y_, food.get_x(), food.get_y())) {
+          continue;
+        }
+
+        if (first_food_found->get_is_null()) {
+          first_food_found = food;
+        }
+
+        if (std::max(std::abs(x_, food.get_x()), std::abs(y_, food.get_y())) <= runner_sniff_distance) {
+          food_target_ = food;
+          destination_x_ = first_food_found->get_x();
+          destination_y_ = first_food_found->get_y();
+          target_state_ = 0;
+          return;
+        }
+      }
+    }
+  }
 }
 
 bool PenanceRunner::TryEatAndCheckTarget() {
@@ -158,9 +196,9 @@ void PenanceRunner::DoTick7To10() {
 }
 
 bool PenanceRunner::IsNearEastTrap(GameMap &gameMap) const {
-
+  return true;
 }
 
 bool PenanceRunner::IsNearWestTrap(GameMap &gameMap) const {
-
+  return true;
 }

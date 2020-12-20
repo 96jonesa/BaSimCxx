@@ -8,6 +8,7 @@
 #include <vector>
 #include <map>
 #include <string>
+#include <memory>
 
 #include "Item.h"
 #include "PenanceRunner.h"
@@ -159,6 +160,34 @@ class GameMap {
     void set_height_tiles(int height_tiles) { height_tiles_ = height_tiles; }
 
     /**
+     * gets the item zones width
+     *
+     * @return  the item zones width
+     */
+    int get_item_zones_width() const { return item_zones_width_; }
+
+    /**
+     * sets the item zones width to the given value
+     *
+     * @param item_zones_width  the value to set the item zones width to
+     */
+    void set_item_zones_width(int item_zones_width) { item_zones_width_ = item_zones_width; }
+
+    /**
+     * gets the item zones height
+     *
+     * @return  the item zones height
+     */
+    int get_item_zones_height() const { return item_zones_height_; }
+
+    /**
+     * sets the item zones height to the give value
+     *
+     * @param item_zones_height the value to set the item zones height to
+     */
+    void set_item_zones_height(int item_zones_height) { item_zones_height_ = item_zones_height; }
+
+    /**
      * gets the layout of this game map
      *
      * @return  the layout of this game map
@@ -185,7 +214,7 @@ class GameMap {
      *
      * @param item  the item to add to this game map
      */
-    void AddItem(Item &item);
+    void AddItem(std::shared_ptr<Item> item);
 
     /**
      * gets the item zone corresponding to the given location (x_zone, y_zone)
@@ -195,7 +224,7 @@ class GameMap {
      * @return          the item zone corresponding to the given
      *                  location (x_zone, y_zone)
      */
-    std::vector<Item> &GetItemZone(int x_zone, int y_zone);
+    std::vector< std::shared_ptr<Item> > &GetItemZone(int x_zone, int y_zone);
 
     /**
      * gets the tile flag corresponding to the given location (x, y)
@@ -264,7 +293,7 @@ class GameMap {
      *
      * @return  the runners to remove of this game map
      */
-    std::vector<PenanceRunner> &get_runners_to_remove() const { return runners_to_remove_; }
+    std::vector< std::shared_ptr<PenanceRunner> > &get_runners_to_remove() const { return runners_to_remove_; }
 
     /**
      * sets the runners to remove of this game map to the given value
@@ -272,7 +301,7 @@ class GameMap {
      * @param runners_to_remove the value to set the runners to remove of
      *                          this game map to
      */
-    void set_runners_to_remove(std::vector<PenanceRunner> runners_to_remove) { runners_to_remove_ = runners_to_remove; }
+    void set_runners_to_remove(std::vector< std::shared_ptr<PenanceRunner> > runners_to_remove) { runners_to_remove_ = runners_to_remove; }
 
     /**
      * gets the number of runners alive
@@ -311,19 +340,34 @@ class GameMap {
      */
     bool TileBlocksPenance(int x, int y);
 
+    /**
+     * gets the runner sniff distance
+     *
+     * @return  the runner sniff distance
+     */
+    int get_runner_sniff_distance() const { return runner_sniff_distance_; }
+
+    /**
+     * sets the runner sniff distance to the given value
+     *
+     * @param runner_sniff_distance the value to set the runner sniff distance to
+     */
+    void set_runner_sniff_distance(int runner_sniff_distance) { runner_sniff_distance_ = runner_sniff_distance; }
+
   private:
     bool is_wave_10_;
     std::vector<int> layout_;
     int width_tiles_, height_tiles_;
-    std::map<int, std::vector<Item>> item_zones_;
+    std::map< int, std::shared_ptr< std::vector< std::shared_ptr<Item> > > > item_zones_;
     int item_zones_width_, item_zones_height_;
     int east_trap_state_, west_trap_state_;
     bool nw_logs_state_ = true, se_logs_state_ = true;
     bool hammer_state_ = true;
-    std::vector<PenanceRunner> runners_to_remove_;
+    std::vector< std::shared_ptr<PenanceRunner> > runners_to_remove_;
     int runners_alive_ = 0;
     int runners_killed = 0;
-    std::vector<Player> players_;
+    std::vector< std::shared_ptr<Player> > players_;
+    int runner_sniff_distance_ = 5;
 };  // class GameMap
 
 
