@@ -6,6 +6,7 @@
 #define BASIMCXX_GAMEMAP_H
 
 class Player;
+class PenanceRunner;
 
 #include <vector>
 #include <map>

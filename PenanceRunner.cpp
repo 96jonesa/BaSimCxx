@@ -61,7 +61,7 @@ void PenanceRunner::Tick(GameMap &game_map) {
       } else if (cycle_tick_ == 4) {
         DoTick4();
       } else if (cycle_tick_ == 5) {
-        DoTick2Or5()
+        DoTick2Or5();
       } else if (cycle_tick_ == 6) {
         DoTick6();
       } else if (cycle_tick_ == 7) {
