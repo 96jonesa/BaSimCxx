@@ -106,7 +106,7 @@ bool IsInRange(int x1, int y1, int x2, int y2, int range) {
 }
 
 std::vector< std::vector< std::vector<int> > > SolveWave7ThreeTiles() {
-  std::vector< std::vector<int> > tiles;
+  std::vector< std::vector< std::vector<int> > > tiles;
 
   int x1_min = EAST_TRAP_X - 10;
   int x1_max = EAST_TRAP_X + 10;
@@ -125,7 +125,7 @@ std::vector< std::vector< std::vector<int> > > SolveWave7ThreeTiles() {
     for (int y1 = y1_min; y1 <= y1_max; y1++) {
       std::vector<int> tile1 = {x1, y1};
 
-      if (IsValidTile(tile1) && IsInRage(x1, y1, EAST_TRAP_X, EAST_TRAP_Y + 1, 4)) {
+      if (IsValidTile(tile1) && IsInRange(x1, y1, EAST_TRAP_X, EAST_TRAP_Y + 1, 4)) {
         for (int x2 = x2_min; x2 <= x2_max; x2++) {
           for (int y2 = y2_min; y2 <= y2_max; y2++) {
             std::vector<int> tile2 = {x2, y2};
