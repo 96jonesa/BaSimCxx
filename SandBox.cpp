@@ -17,11 +17,11 @@
 
 bool IsValidTile(std::vector<int> &tile);
 
-int GetWalkDistance(int x1, int y2, int x2, int y2);
+int GetWalkDistance(int x1, int y1, int x2, int y2);
 
 bool IsInRange(int x1, int y1, int x2, int y2, int range);
 
-std::vector< std::vector<int> > SolveWave7ThreeTiles();
+std::vector< std::vector< std::vector<int> > > SolveWave7ThreeTiles();
 
 std::vector<std::string> AppendMovement(std::vector<std::string> &current_movements, std::vector<std::string> &movement_options);
 
@@ -45,7 +45,7 @@ int main(int argc, char **argv) {
   std::cout << "solutions:" << std::endl;
 
   for (int i = 0; i < wave7_three_tile_solution.size(); i++) {
-    std::vector<int> solution = wave7_three_tile_solution[i];
+    std::vector< std::vector<int> > solution = wave7_three_tile_solution[i];
     std::cout << "    [" << TileString(solution[0]) << ", " << TileString(solution[1]) << ", " << TileString(solution[2]) << "]" << std::endl;
   }
 }
@@ -97,7 +97,7 @@ bool IsValidTile(std::vector<int> &tile) {
   return false;
 }
 
-int GetWalkDistance(int x1, int y2, int x2, int y2) {
+int GetWalkDistance(int x1, int y1, int x2, int y2) {
   return std::max(std::abs(x1 - x2), std::abs(y1 - y2));
 }
 
@@ -105,7 +105,7 @@ bool IsInRange(int x1, int y1, int x2, int y2, int range) {
   return (GetWalkDistance(x1, y1, x2, y2) <= range);
 }
 
-std::vector< std::vector<int> > SolveWave7ThreeTiles() {
+std::vector< std::vector< std::vector<int> > > SolveWave7ThreeTiles() {
   std::vector< std::vector<int> > tiles;
 
   int x1_min = EAST_TRAP_X - 10;
