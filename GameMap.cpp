@@ -195,15 +195,15 @@ void GameMap::Tick() {
   tick_counter_++;
   runners_to_remove_.clear();
 
-  for (int i = 0; i < runners_.size(); i++) {
+  for (std::size_t i = 0; i < runners_.size(); i++) {
     runners_[i]->Tick(*this);
   }
 
-  for (int i = 0; i < runners_to_remove_.size(); i++) {
+  for (std::size_t i = 0; i < runners_to_remove_.size(); i++) {
     std::shared_ptr<PenanceRunner> runner = runners_to_remove_[i];
     int index;
 
-    for (int j = 0; j < runners_.size(); j++) {
+    for (std::size_t j = 0; j < runners_.size(); j++) {
       if (runner->get_id() == runners_[i]->get_id()) {
         index = i;
         break;

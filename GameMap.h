@@ -408,7 +408,7 @@ class GameMap {
     std::vector<std::string> runner_movements_;
     int tick_counter_ = 0;
     char defender_food_ = 't';
-    int runner_movements_index_ = 0;
+    std::size_t runner_movements_index_ = 0;
 };  // class GameMap
 
 

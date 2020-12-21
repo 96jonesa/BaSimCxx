@@ -8,6 +8,7 @@
 #include <string>
 #include <boost/algorithm/string.hpp>
 #include <memory>
+#include <cstdlib>
 
 #include "Player.h"
 #include "PlayerDefender.h"
@@ -44,7 +45,7 @@ int main(int argc, char **argv) {
 
   std::cout << "solutions:" << std::endl;
 
-  for (int i = 0; i < wave7_three_tile_solution.size(); i++) {
+  for (std::size_t i = 0; i < wave7_three_tile_solution.size(); i++) {
     std::vector< std::vector<int> > solution = wave7_three_tile_solution[i];
     std::cout << "    [" << TileString(solution[0]) << ", " << TileString(solution[1]) << ", " << TileString(solution[2]) << "]" << std::endl;
   }
@@ -156,8 +157,8 @@ std::vector< std::vector< std::vector<int> > > SolveWave7ThreeTiles() {
 std::vector<std::string> AppendMovement(std::vector<std::string> &current_movements, std::vector<std::string> &movement_options) {
   std::vector<std::string> result;
 
-  for (int i = 0; i < current_movements.size(); i++) {
-    for (int j = 0; j < movement_options.size(); j++) {
+  for (std::size_t i = 0; i < current_movements.size(); i++) {
+    for (std::size_t j = 0; j < movement_options.size(); j++) {
       result.push_back(current_movements[i] + "-" + movement_options[j]);
     }
   }
@@ -169,10 +170,10 @@ std::vector<std::string> ParseMovementsInput(std::string movements_input) {
   std::vector<std::string> movements;
   boost::split(movements, movements_input, boost::is_any_of("-"));
 
-  for (int i = 0; i < movements.size(); i++) {
+  for (std::size_t i = 0; i < movements.size(); i++) {
     std::string moves = movements[i];
 
-    for (int j = 0; j < moves.size(); j++) {
+    for (std::size_t j = 0; j < moves.size(); j++) {
       char move = moves[j];
 
       if ((move != 's') && (move != 'w') && (move != 'e')) {
@@ -188,7 +189,7 @@ std::vector<std::string> ParseMovementsInput(std::string movements_input) {
 bool IsRunnerOnStack(GameMap &game_map) {
   std::vector< std::shared_ptr<PenanceRunner> > &runners = game_map.get_runners();
 
-  for (int i = 0; i <runners.size(); i++) {
+  for (std::size_t i = 0; i <runners.size(); i++) {
     std::shared_ptr<PenanceRunner> runner = runners[i];
 
     if ((runner->get_x() == EAST_TRAP_X) && (runner->get_y() == EAST_TRAP_Y + 1)) {
@@ -202,7 +203,7 @@ bool IsRunnerOnStack(GameMap &game_map) {
 std::string TileString(std::vector<int> &v) {
   std::string result = "[" + std::to_string(v[0]);
 
-  for (int i = 1; i < v.size(); i++) {
+  for (std::size_t i = 1; i < v.size(); i++) {
     result += ", " + std::to_string(v[i]);
   }
 
@@ -214,7 +215,7 @@ std::string TileString(std::vector<int> &v) {
 std::string MovementsString(std::vector<std::string> &v) {
   std::string result = "[" + v[0];
 
-  for (int i = 1; i < v.size(); i++) {
+  for (std::size_t i = 1; i < v.size(); i++) {
     result += ", " + v[i];
   }
 
@@ -233,7 +234,7 @@ bool CheckWave7ThreeTiles(std::vector<int> &tile1, std::vector<int> &tile2, std:
   movements_input_vector = AppendMovement(movements_input_vector, movement_options);
   movements_input_vector = AppendMovement(movements_input_vector, movement_options);
 
-  for (int movements_index = 0; movements_index < movements_input_vector.size(); movements_index++) {
+  for (std::size_t movements_index = 0; movements_index < movements_input_vector.size(); movements_index++) {
     std::vector<std::string> movements = ParseMovementsInput(movements_input_vector[movements_index]);
     int max_runners_alive = 5;
     int total_runners = 6;
