@@ -200,7 +200,7 @@ void GameMap::Tick() {
   }
 
   for (std::size_t i = 0; i < runners_to_remove_.size(); i++) {
-    std::shared_ptr<PenanceRunner> runner = runners_to_remove_[i];
+    PenanceRunner *runner = runners_to_remove_[i];
     int index;
 
     for (std::size_t j = 0; j < runners_.size(); j++) {

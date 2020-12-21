@@ -306,7 +306,7 @@ class GameMap {
      *
      * @return  the runners to remove of this game map
      */
-    std::vector< std::shared_ptr<PenanceRunner> > &get_runners_to_remove() { return runners_to_remove_; }
+    std::vector<PenanceRunner *> &get_runners_to_remove() { return runners_to_remove_; }
 
     /**
      * sets the runners to remove of this game map to the given value
@@ -314,7 +314,7 @@ class GameMap {
      * @param runners_to_remove the value to set the runners to remove of
      *                          this game map to
      */
-    void set_runners_to_remove(std::vector< std::shared_ptr<PenanceRunner> > runners_to_remove) { runners_to_remove_ = runners_to_remove; }
+    void set_runners_to_remove(std::vector<PenanceRunner *> runners_to_remove) { runners_to_remove_ = runners_to_remove; }
 
     /**
     * gets the runners of this game map
@@ -398,7 +398,7 @@ class GameMap {
     int east_trap_state_, west_trap_state_;
     bool nw_logs_state_ = true, se_logs_state_ = true;
     bool hammer_state_ = true;
-    std::vector< std::shared_ptr<PenanceRunner> > runners_to_remove_;
+    std::vector<PenanceRunner *> runners_to_remove_;
     std::vector< std::shared_ptr<PenanceRunner> > runners_;
     int runners_alive_ = 0;
     int runners_killed_ = 0;

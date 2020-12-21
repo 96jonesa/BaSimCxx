@@ -35,8 +35,8 @@ void PenanceRunner::Tick(GameMap &game_map) {
     despawn_countdown_--;
 
     if (despawn_countdown_ == 0) {
-      std::vector< std::shared_ptr<PenanceRunner> > &runners_to_remove = game_map.get_runners_to_remove();
-      runners_to_remove.push_back(std::shared_ptr<PenanceRunner>(this));  // TODO: cant pass as shared_ptr because there is a free involved (double free)
+      std::vector<PenanceRunner *> &runners_to_remove = game_map.get_runners_to_remove();
+      runners_to_remove.push_back(this);  // TODO: check if making not shared pointer fixes double free error
 
       if (!is_dying_) {
         game_map.set_runners_alive(game_map.get_runners_alive() - 1);
