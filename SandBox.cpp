@@ -271,11 +271,11 @@ bool CheckWave7ThreeTiles(std::vector<int> &tile1, std::vector<int> &tile2, std:
         game_map.AddItem(food2);
         game_map.AddItem(food3);
 
-        std::cout << "trap food   " << tick_counter << std::endl;
+        // std::cout << "trap food   " << tick_counter << std::endl;
       } else if (tick_counter == 27) {  // trail food
         std::shared_ptr<Item> food1 = std::make_shared<Item>(EAST_TRAP_X - 6, EAST_TRAP_Y + 5, false, 'w');
 
-        std::cout << "trail food   " << tick_counter << std::endl;
+        // std::cout << "trail food   " << tick_counter << std::endl;
         game_map.AddItem(food1);
       } else if (tick_counter == 29) {  // main stack
         std::shared_ptr<Item> food1 = std::make_shared<Item>(EAST_TRAP_X - 10, EAST_TRAP_Y + 9, true, 't');
@@ -289,22 +289,22 @@ bool CheckWave7ThreeTiles(std::vector<int> &tile1, std::vector<int> &tile2, std:
         game_map.AddItem(food4);
         game_map.AddItem(food5);
 
-        std::cout << "main stack   " << tick_counter << std::endl;
+        // std::cout << "main stack   " << tick_counter << std::endl;
       } else if ((!first_runner) && IsRunnerOnStack(game_map)) {
         first_runner = true;
         defender->set_x(EAST_TRAP_X);
         defender->set_y(EAST_TRAP_Y + 1);
 
-        std::cout << "first runner   " << tick_counter << std::endl;
+        // std::cout << "first runner   " << tick_counter << std::endl;
       } else if (tick_counter == 61) {  // move off trap food on tick 61
         defender->PathFind(game_map, tile1[0], tile1[1]);
-        std::cout << "61 move off   " << tick_counter << std::endl;
+        // std::cout << "61 move off   " << tick_counter << std::endl;
       } else if ((defender->get_x() == tile1[0]) && (defender->get_y() == tile1[1])) {  // drop bait food asap, then move to tile2
         std::shared_ptr<Item> food1 = std::make_shared<Item>(tile1[0], tile1[1], true, 'w');
         game_map.AddItem(food1);
         defender->PathFind(game_map, tile2[0], tile2[1]);
 
-        std::cout << "first bait   " << tick_counter << std::endl;
+        // std::cout << "first bait   " << tick_counter << std::endl;
       } else if ((defender->get_x() == tile2[0]) && (defender->get_y() == tile2[1])) {  // drop bait food asap, then teleport away to avoid bumping
         std::shared_ptr<Item> food1 = std::make_shared<Item>(tile2[0], tile2[1], true, 'w');
         game_map.AddItem(food1);
@@ -312,7 +312,7 @@ bool CheckWave7ThreeTiles(std::vector<int> &tile1, std::vector<int> &tile2, std:
         defender->set_y(WAVE1_DEFENDER_SPAWN_Y);
         second_drop_tick = tick_counter;
 
-        std::cout << "second bait   " << tick_counter << std::endl;
+        // std::cout << "second bait   " << tick_counter << std::endl;
       } else if (tick_counter == second_drop_tick + 5) {  // should take 5 ticks to get to tile3 from tile2, then teleport away to not block
         defender->set_x(tile3[0]);
         defender->set_y(tile3[1]);
@@ -329,14 +329,14 @@ bool CheckWave7ThreeTiles(std::vector<int> &tile1, std::vector<int> &tile2, std:
         defender->set_x(WAVE1_DEFENDER_SPAWN_X);
         defender->set_y(WAVE1_DEFENDER_SPAWN_Y);
 
-        std::cout << "third bait   " << tick_counter << std::endl;
+        // std::cout << "third bait   " << tick_counter << std::endl;
       }
     }
 
     if (game_map.get_runners_killed() < 6) {
-      std::cout << TileString(tile1) << ", " << TileString(tile2) << ", " << TileString(tile3);
-      std::cout << " failed with " + std::to_string(game_map.get_runners_killed()) << " runner(s) killed on pattern ";
-      std::cout << MovementsString(movements) << std::endl;
+      // std::cout << TileString(tile1) << ", " << TileString(tile2) << ", " << TileString(tile3);
+      // std::cout << " failed with " + std::to_string(game_map.get_runners_killed()) << " runner(s) killed on pattern ";
+      // std::cout << MovementsString(movements) << std::endl;
 
       return false;
     }
