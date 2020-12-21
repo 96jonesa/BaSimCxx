@@ -212,7 +212,7 @@ std::string TileString(std::vector<int> &v) {
 }
 
 std::string MovementsString(std::vector<std::string> &v) {
-  std::string result = "[" + std::to_string(v[0]);
+  std::string result = "[" + v[0];
 
   for (int i = 1; i < v.size(); i++) {
     result += ", " + v[i];
