@@ -14,7 +14,7 @@
 #include "GameMap.h"
 #include "Item.h"
 
-PenanceRunner::PenanceRunner(int x, int y)
+PenanceRunner::PenanceRunner(int x, int y, string forced_movements)
     : x_(x), y_(y), destination_x_(x), destination_y_(y), forced_movements_(forced_movements), id_(next_id_++) {
 }
 
@@ -41,13 +41,13 @@ void PenanceRunner::Tick(GameMap &game_map) {
       if (!is_dying_) {
         game_map.set_runners_alive(game_map.get_runners_alive() - 1);
       } else {
-        if (IsNearEastTrap(game_map)) {
+        if (IsNearEastTrap()) {
           if (game_map.get_east_trap_state() > 0) {
             game_map.set_east_trap_state(game_map.get_east_trap_state() - 1);
           }
         }
 
-        if (IsNearWestTrap(game_map)) {
+        if (IsNearWestTrap()) {
           if (game_map.get_west_trap_state() > 0) {
             game_map.set_west_trap_state(game_map.get_west_trap_state() - 1);
           }
@@ -164,7 +164,7 @@ bool PenanceRunner::TryEatAndCheckTarget(GameMap &game_map) {
     std::vector< std::shared_ptr<Item> > &item_zone = game_map.GetItemZone(food_target_->get_x() >> 3, food_target_->get_y() >> 3);
     int food_index = -1;
 
-    for (int i = 0; i < item_zone.size(); i++) {
+    for (std::size_t i = 0; i < item_zone.size(); i++) {
       std::shared_ptr<Item> &item = item_zone[i];
       if (item->get_id() == food_target_->get_id()) {
         food_index = i;
@@ -178,11 +178,11 @@ bool PenanceRunner::TryEatAndCheckTarget(GameMap &game_map) {
       return true;
     } else if ((x_ == food_target_->get_x()) && (y_ == food_target_->get_y())) {
       if (food_target_->get_is_good()) {
-        if (IsNearEastTrap(game_map)) {
+        if (IsNearEastTrap()) {
           if (game_map.get_east_trap_state() > 0) {
             is_dying_ = true;
           }
-        } else if (IsNearWestTrap(game_map)) {
+        } else if (IsNearWestTrap()) {
           if (game_map.get_west_trap_state() > 0) {
             is_dying_ = true;
           }
@@ -195,7 +195,7 @@ bool PenanceRunner::TryEatAndCheckTarget(GameMap &game_map) {
           cycle_tick_ -= 5;
         }
 
-        SetDestinationBlughhhh();
+        SetDestinationBlughhhh(game_map);
       }
 
       item_zone.erase(item_zone.begin() + food_index);
@@ -224,11 +224,11 @@ void PenanceRunner::SetDestinationBlughhhh(GameMap &game_map) {
 
 void PenanceRunner::SetDestinationRandomWalk(GameMap &game_map) {
   if (x_ <= 27) {
-    if ((y == 8) || (y == 9)) {
+    if ((y_ == 8) || (y_ == 9)) {
       destination_x_ = 30;
       destination_y_ = 8;
       return;
-    } else if ((x_ == 25) && (y == 7)) {
+    } else if ((x_ == 25) && (y_ == 7)) {
       destination_x_ = 26;
       destination_y_ = 8;
       return;
@@ -239,7 +239,7 @@ void PenanceRunner::SetDestinationRandomWalk(GameMap &game_map) {
       destination_y_ = 6;
       return;
     }
-  } else if ((y_ == 7) || (y == 8)) {
+  } else if ((y_ == 7) || (y_ == 8)) {
     destination_x_ -= 31;
     destination_y_ = 8;
     return;
@@ -290,7 +290,7 @@ void PenanceRunner::DoTick1(GameMap &game_map) {
     }
   }
 
-  bool ate_or_target_gone = TryEatAndCheckTarget();
+  bool ate_or_target_gone = TryEatAndCheckTarget(game_map);
 
   if ((blughhhh_countdown_ == 0) && (food_target_ == nullptr)) {
     CancelDestination();

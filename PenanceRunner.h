@@ -9,6 +9,7 @@ class GameMap;
 
 #include <string>
 #include <memory>
+#include <cstdlib>
 
 #include "Item.h"
 #include "GameMap.h"
@@ -172,7 +173,7 @@ class PenanceRunner {
     bool is_dying_ = false;
     std::string forced_movements_;
     int id_;
-    int forced_movements_index_ = 0;
+    std::size_t forced_movements_index_ = 0;
 };
 
 

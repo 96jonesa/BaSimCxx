@@ -12,6 +12,7 @@ class PenanceRunner;
 #include <map>
 #include <string>
 #include <memory>
+#include <cstdlib>
 
 #include "Item.h"
 #include "PenanceRunner.h"
