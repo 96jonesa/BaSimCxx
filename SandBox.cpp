@@ -277,11 +277,11 @@ bool CheckWave7ThreeTiles(std::vector<int> &tile1, std::vector<int> &tile2, std:
         defender->set_x(EAST_TRAP_X);
         defender->set_y(EAST_TRAP_Y + 1);
       } else if (tick_counter == 61) {  // move off trap food on tick 61
-        defender->PathFind(tile1[0], tile1[1]);
+        defender->PathFind(game_map, tile1[0], tile1[1]);
       } else if ((defender->get_x() == tile1[0]) && (defender->get_y() == tile1[1])) {  // drop bait food asap, then move to tile2
         std::shared_ptr<Item> food1 = std::make_shared<Item>(tile1[0], tile1[1], true, 'w');
         game_map.AddItem(food1);
-        defender->PathFind(tile2[0], tile1[0]);
+        defender->PathFind(game_map, tile2[0], tile1[0]);
       } else if ((defender->get_x() == tile2[0]) && (defender->get_y() == tile2[1])) {  // drop bait food asap, then teleport away to avoid bumping
         std::shared_ptr<Item> food1 = std::make_shared<Item>(tile2[0], tile2[1], true, 'w');
         game_map.AddItem(food1);
