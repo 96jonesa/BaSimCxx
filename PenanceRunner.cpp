@@ -14,7 +14,7 @@
 #include "GameMap.h"
 #include "Item.h"
 
-PenanceRunner::PenanceRunner(int x, int y, string forced_movements)
+PenanceRunner::PenanceRunner(int x, int y, std::string forced_movements)
     : x_(x), y_(y), destination_x_(x), destination_y_(y), forced_movements_(forced_movements), id_(next_id_++) {
 }
 
