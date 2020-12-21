@@ -6,13 +6,17 @@
 #include <algorithm>
 #include <vector>
 #include <memory>
+#include <cmath>
+#include <cstdlib>
+#include <ctime>
 
 #include "PenanceRunner.h"
 #include "GameMap.h"
 #include "Item.h"
 
 PenanceRunner::PenanceRunner(int x, int y)
-    : x_(x), y_(y), destination_x_(x), destination_y_(y), id_(next_id_++) { }
+    : x_(x), y_(y), destination_x_(x), destination_y_(y), forced_movements_(forced_movements), id_(next_id_++) {
+}
 
 std::string PenanceRunner::ToString() const {
   return "";
@@ -53,25 +57,25 @@ void PenanceRunner::Tick(GameMap &game_map) {
   } else {
     if (!is_dying_) {
       if (cycle_tick_ == 1) {
-        DoTick1();
+        DoTick1(game_map);
       } else if (cycle_tick_ == 2) {
-        DoTick2Or5();
+        DoTick2Or5(game_map);
       } else if (cycle_tick_ == 3) {
-        DoTick3();
+        DoTick3(game_map);
       } else if (cycle_tick_ == 4) {
-        DoTick4();
+        DoTick4(game_map);
       } else if (cycle_tick_ == 5) {
-        DoTick2Or5();
+        DoTick2Or5(game_map);
       } else if (cycle_tick_ == 6) {
-        DoTick6();
+        DoTick6(game_map);
       } else if (cycle_tick_ == 7) {
-        DoTick7To10();
+        DoTick7To10(game_map);
       } else if (cycle_tick_ == 8) {
-        DoTick7To10();
+        DoTick7To10(game_map);
       } else if (cycle_tick_ == 9) {
-        DoTick7To10();
+        DoTick7To10(game_map);
       } else if (cycle_tick_ == 10) {
-        DoTick7To10();
+        DoTick7To10(game_map);
       }
     }
 
@@ -121,7 +125,7 @@ void PenanceRunner::DoMovement(GameMap &game_map) {
 void PenanceRunner::TryTargetFood(GameMap &game_map) {
   int x_zone = x_ >> 3;
   int y_zone = y_ >> 3;
-  std::shared_ptr<Item> first_food_found(new Item());
+  std::shared_ptr<Item> first_food_found;
   int end_x_zone = std::max(x_zone - 1, 0);
   int end_y_zone = std::max(y_zone - 1, 0);
   int item_zones_width = game_map.get_item_zones_width();
@@ -139,7 +143,7 @@ void PenanceRunner::TryTargetFood(GameMap &game_map) {
           continue;
         }
 
-        if (first_food_found->get_is_null()) {
+        if (first_food_found == nullptr) {
           first_food_found = food;
         }
 
@@ -155,52 +159,244 @@ void PenanceRunner::TryTargetFood(GameMap &game_map) {
   }
 }
 
-bool PenanceRunner::TryEatAndCheckTarget() {
-  return true;
+bool PenanceRunner::TryEatAndCheckTarget(GameMap &game_map) {
+  if (food_target_ != nullptr) {
+    std::vector< std::shared_ptr<Item> > &item_zone = game_map.GetItemZone(food_target_->get_x() >> 3, food_target_->get_y() >> 3);
+    int food_index = -1;
+
+    for (int i = 0; i < item_zone.size(); i++) {
+      std::shared_ptr<Item> &item = item_zone[i];
+      if (item->get_id() == food_target_->get_id()) {
+        food_index = i;
+        break;
+      }
+    }
+
+    if (food_index == -1) {
+      food_target_ = nullptr;
+      target_state_ = 0;
+      return true;
+    } else if ((x_ == food_target_->get_x()) && (y_ == food_target_->get_y())) {
+      if (food_target_->get_is_good()) {
+        if (IsNearEastTrap(game_map)) {
+          if (game_map.get_east_trap_state() > 0) {
+            is_dying_ = true;
+          }
+        } else if (IsNearWestTrap(game_map)) {
+          if (game_map.get_west_trap_state() > 0) {
+            is_dying_ = true;
+          }
+        }
+      } else {
+        blughhhh_countdown_ = 3;
+        target_state_ = 0;
+
+        if (cycle_tick_ > 5) {
+          cycle_tick_ -= 5;
+        }
+
+        SetDestinationBlughhhh();
+      }
+
+      item_zone.erase(item_zone.begin() + food_index);
+      return true;
+    }
+  }
+
+  return false;
 }
 
 void PenanceRunner::CancelDestination() {
-
+  destination_x_ = x_;
+  destination_y_ = y_;
 }
 
-void PenanceRunner::SetDestinationBlughhhh() {
+// TODO: this should probably be generalized
+void PenanceRunner::SetDestinationBlughhhh(GameMap &game_map) {
+  destination_x_ = x_;
 
+  if (game_map.IsWave10()) {
+    destination_y_ = EAST_TRAP_Y - 4;
+  } else {
+    destination_y_ = EAST_TRAP_Y + 4;
+  }
 }
 
-void PenanceRunner::SetDestinationRandomWalk() {
+void PenanceRunner::SetDestinationRandomWalk(GameMap &game_map) {
+  if (x_ <= 27) {
+    if ((y == 8) || (y == 9)) {
+      destination_x_ = 30;
+      destination_y_ = 8;
+      return;
+    } else if ((x_ == 25) && (y == 7)) {
+      destination_x_ = 26;
+      destination_y_ = 8;
+      return;
+    }
+  } else if (x_ <= 32) {
+    if (y_ <= 8) {
+      destination_x_ = 30;
+      destination_y_ = 6;
+      return;
+    }
+  } else if ((y_ == 7) || (y == 8)) {
+    destination_x_ -= 31;
+    destination_y_ = 8;
+    return;
+  }
 
+  int direction = RollMovement();
+  forced_movements_index_++;
+
+  if (direction == SOUTH) {
+    destination_x_ = x_;
+    destination_y_ = y_ - 5;
+  } else if (direction == WEST) {
+    destination_x_ = x_ - 5;
+
+    if (destination_x_ < WEST_TRAP_X - 1) {
+      destination_x_ = WEST_TRAP_X - 1;
+    }
+
+    destination_y_ = y_;
+  } else {
+    destination_x_ = x_ + 5;
+
+    if (game_map.IsWave10()) {
+      if (destination_x_ > EAST_TRAP_X - 1) {
+        destination_x_ = EAST_TRAP_X - 1;
+      }
+    } else if (destination_x_ > EAST_TRAP_X) {
+      destination_x_ = EAST_TRAP_X;
+    }
+
+    destination_y_ = y_;
+  }
 }
 
-void PenanceRunner::DoTick1() {
+void PenanceRunner::DoTick1(GameMap &game_map) {
+  if (y_ == 6) {
+    despawn_countdown_ = 3;
+    return;
+  }
 
+  if (blughhhh_countdown_ > 0) {
+    blughhhh_countdown_--;
+  } else {
+    target_state_++;
+
+    if (target_state_ > 3) {
+      target_state_ = 1;
+    }
+  }
+
+  bool ate_or_target_gone = TryEatAndCheckTarget();
+
+  if ((blughhhh_countdown_ == 0) && (food_target_ == nullptr)) {
+    CancelDestination();
+  }
+
+  if (!ate_or_target_gone) {
+    DoMovement(game_map);
+  }
 }
 
-void PenanceRunner::DoTick2Or5() {
+void PenanceRunner::DoTick2Or5(GameMap &game_map) {
+  if (target_state_ == 2) {
+    TryTargetFood(game_map);
+  }
 
+  DoTick7To10(game_map);
 }
 
-void PenanceRunner::DoTick3() {
+void PenanceRunner::DoTick3(GameMap &game_map) {
+  if (target_state_ == 3) {
+    TryTargetFood(game_map);
+  }
 
+  DoTick7To10(game_map);
 }
 
-void PenanceRunner::DoTick4() {
+void PenanceRunner::DoTick4(GameMap &game_map) {
+  if (target_state_ == 1) {
+    TryTargetFood(game_map);
+  }
 
+  DoTick7To10(game_map);
 }
 
-void PenanceRunner::DoTick6() {
+void PenanceRunner::DoTick6(GameMap &game_map) {
+  if (y_ == 6) {
+    despawn_countdown_ = 3;
+    return;
+  }
 
+  if (blughhhh_countdown_ > 0) {
+    blughhhh_countdown_--;
+  }
+
+  if (target_state_ == 3) {
+    TryTargetFood(game_map);
+  }
+
+  bool ate_or_target_gone = TryEatAndCheckTarget(game_map);
+
+  if ((blughhhh_countdown_ == 0) && ((food_target_ == nullptr) || ate_or_target_gone)) {
+    SetDestinationRandomWalk(game_map);
+  }
+
+  if (!ate_or_target_gone) {
+    DoMovement(game_map);
+  }
 }
 
-void PenanceRunner::DoTick7To10() {
+void PenanceRunner::DoTick7To10(GameMap &game_map) {
+  bool ate_or_target_gone = TryEatAndCheckTarget(game_map);
 
+  if (!ate_or_target_gone) {
+    DoMovement(game_map);
+  }
 }
 
-bool PenanceRunner::IsNearEastTrap(GameMap &gameMap) const {
-  return true;
+bool PenanceRunner::IsNearEastTrap() const {
+  return ((std::abs(x_ - EAST_TRAP_X) < 2) && (std::abs(y_ - EAST_TRAP_Y) < 2));
 }
 
-bool PenanceRunner::IsNearWestTrap(GameMap &gameMap) const {
-  return true;
+bool PenanceRunner::IsNearWestTrap() const {
+  return ((std::abs(x_ - WEST_TRAP_X) < 2) && (std::abs(y_ - WEST_TRAP_Y) < 2));
+}
+
+int PenanceRunner::RollMovement() {
+  if (forced_movements_.size() > forced_movements_index_) {
+    char movement = forced_movements_[forced_movements_index_];
+    forced_movements_index_++;
+
+    if (movement == 's') {
+      return SOUTH;
+    }
+
+    if (movement == 'w') {
+      return WEST;
+    }
+
+    if (movement == 'e') {
+      return EAST;
+    }
+  }
+
+  std::srand(std::time(nullptr));
+
+  int random_number = (std::rand() / ((RAND_MAX + 1u)/6)) - 1;
+
+  if (random_number < 4) {
+    return SOUTH;
+  }
+
+  if (random_number == 4) {
+    return WEST;
+  }
+
+  return EAST;
 }
 
 int PenanceRunner::next_id_ = 0;

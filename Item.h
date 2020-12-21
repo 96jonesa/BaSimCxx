@@ -10,11 +10,6 @@
 class Item {
   public:
     /**
-     * constructor for constructing a "null" item
-     */
-    Item() : is_null_(true) { }
-
-    /**
      * constructor specifying the x and y coordinates of this item,
      * whether or not this item is "good", and the type of this item
      *
@@ -107,27 +102,12 @@ class Item {
      */
     void set_id(int id) { id_ = id; }
 
-    /**
-     * gets whether this item is "null"
-     *
-     * @return  true if this item is "null", else false
-     */
-    bool get_is_null() const { return is_null_; }
-
-    /**
-     * sets whether this item is "null" to the given value
-     *
-     * @param is_null the value to set whether this item is "null" to
-     */
-    void set_is_null(bool is_null) { is_null_ = is_null; }
-
   private:
     static int next_id_;
     int x_, y_;
     bool is_good_;
     char type_;
     int id_;
-    bool is_null_;
 };  // class Item
 
 

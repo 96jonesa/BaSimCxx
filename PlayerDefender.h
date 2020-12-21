@@ -39,7 +39,7 @@ class PlayerDefender : public Player {
     std::string ToString() const override;
 
     /**
-     * updates this player's state by progressing by a game tick
+     * updates this (player) defender's state by progressing by a game tick
      *
      * @param game_map  the state of the game map
      */
