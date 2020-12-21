@@ -85,7 +85,7 @@ class Player {
 
   protected:
     int x_, y_;
-    int path_queue_pos_;
+    int path_queue_pos_ = 0;
     std::vector<int> path_queue_x_, path_queue_y_;
     std::vector<int> shortest_distances_;
     std::vector<int> way_points_;
