@@ -246,14 +246,17 @@ bool CheckWave7ThreeTiles(std::vector<int> &tile1, std::vector<int> &tile2, std:
     bool first_runner = false;
     int second_drop_tick = 100;
 
+    bool two_dead = false;
+
     for (int i = 0; i < 100; i++) {
       game_map.Tick();
       defender->Tick(game_map);
 
       int tick_counter = game_map.get_tick_counter();
 
-      if (game_map.get_runners_killed() == 2) {
+      if ((!two_dead) && (game_map.get_runners_killed() == 2)) {
         std::cout << "2 dead at " << tick_counter << "   ";
+        two_dead = true;
       }
 
       if (tick_counter == 24) {  // trap food
