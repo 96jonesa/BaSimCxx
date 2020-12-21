@@ -310,6 +310,11 @@ bool CheckWave7ThreeTiles(std::vector<int> &tile1, std::vector<int> &tile2, std:
     if (game_map.get_runners_killed() < 6) {
       std::cout << TileString(tile1) << ", " << TileString(tile2) << ", " << TileString(tile3);
       std::cout << " failed with " + std::to_string(game_map.get_runners_killed()) << " runners killed on pattern ";
+
+      if (!first_runner) {
+        std::cout << "first runner error";
+      }
+
       std::cout << MovementsString(movements) << std::endl;
 
       return false;
