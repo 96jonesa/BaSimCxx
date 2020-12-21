@@ -257,6 +257,10 @@ bool CheckWave7ThreeTiles(std::vector<int> &tile1, std::vector<int> &tile2, std:
       if ((!two_dead) && (game_map.get_runners_killed() == 2)) {
         std::cout << "2 dead at " << tick_counter << "   ";
         two_dead = true;
+
+        if ((defender->get_x() == EAST_TRAP_X) && (defender->get_y() == EAST_TRAP_Y + 1)) {
+          std::cout << "defender on trap   ";
+        }
       }
 
       if (tick_counter == 24) {  // trap food
