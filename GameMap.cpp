@@ -204,8 +204,8 @@ void GameMap::Tick() {
     int index;
 
     for (std::size_t j = 0; j < runners_.size(); j++) {
-      if (runner->get_id() == runners_[i]->get_id()) {
-        index = i;
+      if (runner->get_id() == runners_[j]->get_id()) {
+        index = j;
         break;
       }
     }
