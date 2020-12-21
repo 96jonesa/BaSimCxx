@@ -252,6 +252,10 @@ bool CheckWave7ThreeTiles(std::vector<int> &tile1, std::vector<int> &tile2, std:
 
       int tick_counter = game_map.get_tick_counter();
 
+      if (game_map.get_runners_killed() == 2) {
+        std::cout << "2 dead at " << tick_counter << "   ";
+      }
+
       if (tick_counter == 24) {  // trap food
         std::shared_ptr<Item> food1 = std::make_shared<Item>(EAST_TRAP_X, EAST_TRAP_Y + 1, true, 't');
         std::shared_ptr<Item> food2 = std::make_shared<Item>(EAST_TRAP_X, EAST_TRAP_Y + 1, true, 't');
@@ -309,12 +313,7 @@ bool CheckWave7ThreeTiles(std::vector<int> &tile1, std::vector<int> &tile2, std:
 
     if (game_map.get_runners_killed() < 6) {
       std::cout << TileString(tile1) << ", " << TileString(tile2) << ", " << TileString(tile3);
-      std::cout << " failed with " + std::to_string(game_map.get_runners_killed()) << " runners killed on pattern ";
-
-      if (!first_runner) {
-        std::cout << "first runner error";
-      }
-
+      std::cout << " failed with " + std::to_string(game_map.get_runners_killed()) << " runner(s) killed on pattern ";
       std::cout << MovementsString(movements) << std::endl;
 
       return false;
