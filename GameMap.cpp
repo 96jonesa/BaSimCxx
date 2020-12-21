@@ -6,12 +6,18 @@
 #include <cmath>
 #include <vector>
 #include <memory>
+#include <cstdlib>
+#include <ctime>
 
 #include "GameMap.h"
 #include "Item.h"
 #include "Player.h"
 
-GameMap::GameMap(bool is_wave_10) : is_wave_10_(is_wave_10) {
+GameMap::GameMap(bool is_wave_10, int max_runners_alive, int total_runners, std::vector<std::string> runner_movements)
+    : is_wave_10_(is_wave_10),
+      max_runners_alive_(max_runners_alive),
+      total_runners_(total_runners),
+      runner_movements_(runner_movements.begin(), runner_movements.end()) {
   if (is_wave_10) {
     layout_ = WAVE_10_MAP;
     width_tiles_ = 64;
@@ -183,4 +189,76 @@ bool GameMap::TileBlocksPenance(int x, int y) {
   }
 
   return false;
+}
+
+void GameMap::Tick() {
+  tick_counter_++;
+  runners_to_remove_.clear();
+
+  for (int i = 0; i < runners_.size(); i++) {
+    runners_[i]->Tick(*this);
+  }
+
+  for (int i = 0; i < runners_to_remove_.size(); i++) {
+    std::shared_ptr<PenanceRunner> runner = runners_to_remove_[i];
+    int index;
+
+    for (int j = 0; j < runners_.size(); j++) {
+      if (runner->get_id() == runners_[i]->get_id()) {
+        index = i;
+        break;
+      }
+    }
+
+    runners_.erase(runners_.begin() + index);
+  }
+
+  // hammer and logs respawn
+  if ((tick_counter_ > 1) && (tick_counter_ % 10 == 1)) {
+    nw_logs_state_ = true;
+    se_logs_state_ = true;
+    hammer_state_ = true;
+  }
+
+  // defender food changes
+  if ((tick_counter_ > 2) && (tick_counter_ % 50 == 2)) {
+    std::srand(std::time(nullptr));
+    int random_number = std::rand() / ((RAND_MAX + 1u)/2);
+
+    if (defender_food_ == 't') {
+      if (random_number == 0) {
+        defender_food_ = 'c';
+      } else {
+        defender_food_ = 'w';
+      }
+    } else if (defender_food_ == 'c') {
+      if (random_number == 0) {
+        defender_food_ = 'w';
+      } else {
+        defender_food_ = 't';
+      }
+    } else {
+      if (random_number == 0) {
+        defender_food_ = 't';
+      } else {
+        defender_food_ = 'c';
+      }
+    }
+  }
+
+  if ((tick_counter_ > 1) &&
+      (tick_counter_ % 10 == 1) &&
+      (runners_alive_ < max_runners_alive_) &&
+      (runners_killed_ + runners_alive_ < total_runners_)) {
+    std::string movements = "";
+
+    if (runner_movements_.size() > runner_movements_index_) {
+      movements = runner_movements_[runner_movements_index_];
+      runner_movements_index_++;
+    }
+
+    std::shared_ptr<PenanceRunner> runner = std::make_shared<PenanceRunner>(WAVE1_RUNNER_SPAWN_X, WAVE1_RUNNER_SPAWN_Y, movements);
+    runners_.push_back(runner);
+    runners_alive_++;
+  }
 }

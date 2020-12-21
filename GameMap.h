@@ -44,6 +44,14 @@ const int WAVE10_SE_LOGS_X = 30;
 const int WAVE10_SE_LOGS_Y = 38;
 const int HAMMER_X = 32;
 const int HAMMER_Y = 34;
+const int WAVE1_RUNNER_SPAWN_X = 36;
+const int WAVE1_RUNNER_SPAWN_Y = 39;
+const int WAVE10_RUNNER_SPAWN_X = 42;
+const int WAVE10_RUNNER_SPAWN_Y = 38;
+const int WAVE1_DEFENDER_SPAWN_X = 33;
+const int WAVE1_DEFENDER_SPAWN_Y = 8;
+const int WAVE10_DEFENDER_SPAWN_X = 28;
+const int WAVE10_DEFENDER_SPAWN_Y = 8;
 
 class GameMap {
   public:
@@ -52,7 +60,7 @@ class GameMap {
      *
      * @param is_wave_10    whether it is wave 10 or not
      */
-    GameMap(bool is_wave_10);
+    GameMap(bool is_wave_10, int max_runners_alive, int total_runners, std::vector<std::string> runner_movements);
 
     /**
      * destructor that does nothing
@@ -309,6 +317,20 @@ class GameMap {
     void set_runners_to_remove(std::vector< std::shared_ptr<PenanceRunner> > runners_to_remove) { runners_to_remove_ = runners_to_remove; }
 
     /**
+    * gets the runners of this game map
+    *
+    * @return  the runners of this game map
+    */
+    std::vector< std::shared_ptr<PenanceRunner> > &get_runners() { return runners_; }
+
+    /**
+     * sets the runners of this game map to the given value
+     *
+     * @param runners the value to set the runners of this game map to
+     */
+    void set_runners(std::vector< std::shared_ptr<PenanceRunner> > runners) { runners_ = runners; }
+
+    /**
      * gets the number of runners alive
      *
      * @return  the number of runners alive
@@ -359,6 +381,14 @@ class GameMap {
      */
     void set_runner_sniff_distance(int runner_sniff_distance) { runner_sniff_distance_ = runner_sniff_distance; }
 
+    void AddPlayer(std::shared_ptr<Player> player) {
+      players_.push_back(player);
+    }
+
+    void Tick();
+
+    int get_tick_counter() { return tick_counter_; }
+
   private:
     bool is_wave_10_;
     std::vector<int> layout_;
@@ -369,10 +399,16 @@ class GameMap {
     bool nw_logs_state_ = true, se_logs_state_ = true;
     bool hammer_state_ = true;
     std::vector< std::shared_ptr<PenanceRunner> > runners_to_remove_;
+    std::vector< std::shared_ptr<PenanceRunner> > runners_;
     int runners_alive_ = 0;
     int runners_killed_ = 0;
     std::vector< std::shared_ptr<Player> > players_;
     int runner_sniff_distance_ = 5;
+    int max_runners_alive_, total_runners_;
+    std::vector<std::string> runner_movements_;
+    int tick_counter_ = 0;
+    char defender_food_ = 't';
+    int runner_movements_index_ = 0;
 };  // class GameMap
 
 

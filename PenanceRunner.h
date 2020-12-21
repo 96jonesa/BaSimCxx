@@ -160,6 +160,48 @@ class PenanceRunner {
      */
     int RollMovement();
 
+    /**
+     * gets the id of this penance runner
+     *
+     * @return  the id of this penance runner
+     */
+    int get_id() const { return id_; }
+
+    /**
+     * sets the id of this penance runner to the given value
+     *
+     * @param id  the value to set the id of this penance runner to
+     */
+    void set_id(int id) { id_ = id; }
+
+    /**
+     * gets the x coordinate of this penance runner
+     *
+     * @return  the x coordinate of this penance runner
+     */
+    int get_x() const { return x_; }
+
+    /**
+     * sets the x coordinate of this penance runner to the given value
+     *
+     * @param x the value to set the x coordinate of this penance runner to
+     */
+    void set_x(int x) { x_ = x; }
+
+    /**
+     * gets the y coordinate of this penance runner
+     *
+     * @return  the y coordinate of this penance runner
+     */
+    int get_y() const { return y_; }
+
+    /**
+     * sets the y coordinate of this penance runner to the given value
+     *
+     * @param y the value to set the y coordinate of this penance runner to
+     */
+    void set_y(int y) { y_ = y; }
+
   private:
     static int next_id_;
     int x_, y_;

@@ -386,7 +386,7 @@ int PenanceRunner::RollMovement() {
 
   std::srand(std::time(nullptr));
 
-  int random_number = (std::rand() / ((RAND_MAX + 1u)/6)) - 1;
+  int random_number = std::rand() / ((RAND_MAX + 1u)/6);
 
   if (random_number < 4) {
     return SOUTH;
