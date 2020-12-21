@@ -247,7 +247,7 @@ bool CheckWave7ThreeTiles(std::vector<int> &tile1, std::vector<int> &tile2, std:
 
     for (int i = 0; i < 100; i++) {
       game_map.Tick();
-      defender.Tick(game_map);
+      defender->Tick(game_map);
 
       int tick_counter = game_map.get_tick_counter();
 
@@ -272,7 +272,7 @@ bool CheckWave7ThreeTiles(std::vector<int> &tile1, std::vector<int> &tile2, std:
         game_map.AddItem(food3);
         game_map.AddItem(food4);
         game_map.AddItem(food5);
-      } else if ((!first_runner) && IsRunnerOnStack()) {
+      } else if ((!first_runner) && IsRunnerOnStack(game_map)) {
         first_runner = true;
         defender->set_x(EAST_TRAP_X);
         defender->set_y(EAST_TRAP_Y + 1);
