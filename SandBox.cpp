@@ -38,7 +38,7 @@ bool CheckWave7ThreeTiles(std::vector<int> &tile1, std::vector<int> &tile2, std:
 int main(int argc, char **argv) {
   std::cout << "Hello, world!" << std::endl;
 
-  std::vector< std::vector<int> > wave7_three_tile_solution = SolveWave7ThreeTiles();
+  std::vector< std::vector< std::vector<int> > > wave7_three_tile_solution = SolveWave7ThreeTiles();
 
   std::cout << "number of solutions: " << wave7_three_tile_solution.size() << std::endl;
 
