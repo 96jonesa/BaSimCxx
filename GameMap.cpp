@@ -169,7 +169,7 @@ bool GameMap::HasLineOfSight(int x1, int y1, int x2, int y2) {
 
 bool GameMap::TileBlocksPenance(int x, int y) {
   for (std::shared_ptr<Player> &player : players_) {
-    if ((x == player->get_x()) && (y = player->get_y())) {
+    if ((x == player->get_x()) && (y == player->get_y())) {
       return true;
     }
   }
