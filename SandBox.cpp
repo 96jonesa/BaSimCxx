@@ -137,7 +137,7 @@ std::vector< std::vector< std::vector<int> > > SolveWave7ThreeTiles() {
 
                   if (IsValidTile(tile3) && IsInRange(x3, y3, EAST_TRAP_X, EAST_TRAP_Y, 1) && (GetWalkDistance(x3, y3, x2, y2) == 10)) {
                     if (CheckWave7ThreeTiles(tile1, tile2, tile3)) {
-                      std::vector<int> these_tiles = {tile1, tile2, tile3};
+                      std::vector< std::vector<int> > these_tiles = {tile1, tile2, tile3};
                       tiles.push_back(these_tiles);
                     }
                   }
