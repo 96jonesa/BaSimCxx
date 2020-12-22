@@ -9,6 +9,7 @@
 #include <boost/algorithm/string.hpp>
 #include <memory>
 #include <cstdlib>
+#include <chrono>
 
 #include "Player.h"
 #include "PlayerDefender.h"
@@ -39,7 +40,11 @@ bool CheckWave7ThreeTiles(std::vector<int> &tile1, std::vector<int> &tile2, std:
 int main(int argc, char **argv) {
   std::cout << "Hello, world!" << std::endl;
 
+  auto t1 = std::chrono::high_resolution_clock::now();
   std::vector< std::vector< std::vector<int> > > wave7_three_tile_solution = SolveWave7ThreeTiles();
+  auto t2 = std::chrono::high_resolution_clock::now();
+  auto duration = std::chrono::duration_cast<std::chrono::microseconds>( t2 - t1 ).count();
+  std::cout << "duration: " << duration << std::endl;
 
   std::cout << "number of solutions: " << wave7_three_tile_solution.size() << std::endl;
 
